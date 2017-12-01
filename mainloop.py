@@ -4,7 +4,7 @@ import player2
 import sys
 
 class Controller:
-	def __init__(self, width= , height= ,player1_spec , player2_spec  )
+	def __init__(self, width= , height= ,player1_spec, player2_spec )
 	pygame.init()
 	self.width = width
 	self.height = height
@@ -12,18 +12,14 @@ class Controller:
 	self.background =pygame.Surface(self.screen.get_size())
 	self.player1 = player1_spec
 	self.player2 = player2_spec		
-	"""
-	self.minions = []
-	self.minions.append(minions.Minions(spawn))"""
-	#self.tower1(spawn)
-	#self.tower2(spawn)
-	self.sprites = pygame.sprite.Group((self.player1,) + (self.player2,) """+ tuple(self.minions) + (self.tower1,) + (self.tower2,)""")
+
+	self.sprites = pygame.sprite.Group((self.player1,) + (self.player2,))
 
 	def mainLoop(self):
 		pygame.key.set_repeat(1,60)
 		while True:
 			for event in pygame.event.get():
-				if even.type == pygame.Quit:
+				if event.type == pygame.Quit:
 					sys.exit()
 				if event.type == pygame.KEYDOWN:
 					if(event.key == pygame.K_UP):
@@ -40,7 +36,7 @@ class Controller:
 						self.player1.attack2()
 					if(event.key == pygame.K_KP3):
 						self.player1.attack3()
-					if human == True
+					if human == True:  # Wouldn't player 2 have a different control scheme?
 						if(event.key == pygame.K_w):
 							self.player2.move_up()
 						if(event.key == pygame.K_s):
@@ -57,7 +53,7 @@ class Controller:
 							self.player2.attack3()
 			if(pygame.sprite.collide_rect(self.player2.attack, self.player1):
 				self.player1.health -= self.player2.attack.damage()
-			#copy and paste this for all the attacks or maybe we can for loop it
+			#copy and paste this for all the attacks or maybe we can for loop it ** Make the attack damage chain based on attack, should be fine
 			if(self.player1.health == 0):
 				self.player1.kill()
 			if(self.player2.health == 0):
@@ -68,18 +64,20 @@ class Controller:
 
 def main():
 	spec_choice_1 = input("Choose a spec for player 1 (name of specs here): ")
-	name1 = input("what is your name? ")
+	name1 = input("What is your name? ")  # can we have a textbox visualized?
 	if spec_choice_1 == "name of spec 1"
 		spec_choice_1 = spec.Spec1
-		player1_spec = player1_spec.Player1(spec_choice_1, spawn, name1)
+		player1_spec = player1_spec.Player1(spec_choice_1, spawn, name1)  # dictionary of spec to tuple of choice,spawn,name instead? Depends on # of specs.
 	"""same for the other specs"""
+    '''
 	human = input("is player 2 human or computer controlled (y/n)? ")
 	if human == "y":
 		human = True
 	else:
-		human = False
-	spec_choice_2 = input("Choose a spec for player 2 (name of specs here): ")
-	name2 = input("what is your name? ")
+		human = False  # lets forget about ai for now
+    '''
+	spec_choice_2 = input("Choose a spec for player 2 (name of specs here): ")  # prob sohuldn't be input. Rather, a selection you click maybe?
+	name2 = input("Enter player 2 name: ")  # textbox again
 	if spec_choice_2 == "name of spec 1"
 		spec_choice_2 = spec.Spec1
 		player2_spec = player1_spec.Player1(spec_choice_1, spawn, human, name1)
