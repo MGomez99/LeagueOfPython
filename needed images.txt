@@ -9,3 +9,4 @@ bullet.png
 spec1special.png
 spec2special.png
 spec3special.png
+Pause.png?
