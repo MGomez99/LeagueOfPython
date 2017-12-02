@@ -15,7 +15,7 @@ class Controller:
 		self.sprites = pygame.sprite.Group((self.player1,) + (self.player2,))
 
 	def mainLoop(self):
-		pygame.key.set_repeat(1,60)
+		pygame.key.set_repeat(1,10)
 		while True:
 			for event in pygame.event.get():
 				if even.type == pygame.Quit:
