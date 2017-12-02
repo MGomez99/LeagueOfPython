@@ -1,8 +1,10 @@
 import pygame
-import player1
-import player2
 import sys
-
+import player
+import projectile
+import menu_screen
+import sys
+# path to font is /assets/spaceage.tts
 
 class Controller:
     def __init__(self,player1_spec, player2_spec,  width=800, height=600):
@@ -25,6 +27,7 @@ class Controller:
                 self.screen.blit(self.background, (0, 0))
                 self.sprites.draw(self.screen)
                 pygame.display.flip()
+    def paused(self):
 
 
 def main():
