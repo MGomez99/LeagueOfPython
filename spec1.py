@@ -7,5 +7,6 @@ class spec1:
         self.mana=100 #tbd
         self.image=IMAGEPLACEHOLDER
     def specialAbility(self):
-        if self.mana
-        #dosomeshit tbd
+        if self.mana >=MANACOSTPLACEHOLDER:
+            #dosomeshit tbd
+            self.mana-=MANACOSTPLACEHOLDER
