@@ -6,10 +6,10 @@ import projectile
 
 
 class Player:
-    def __init__(self, xcoor, ycoor, velocity, team, spec):
+    def __init__(self, xcoor, ycoor, team, spec):
         self.x = xcoor
         self.y = ycoor
-        self.vel = velocity
+        self.vel = 5
         self.team = team
         self.spec = spec
         Player.health = self.spec.hp
