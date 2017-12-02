@@ -28,6 +28,7 @@ class Player:
                     bullet=projectile(self.x,self.y,VELOCITYPLACEHOLDER,DAMAGEPLACEHOLDER,self.team,IMAGEPLACEHOLDER)
                     sprites.add(bullet)
                     projectiles.add(bullet)
+                    player.mana-=MANACOSTPLACEHOLDER
                 if event.key==K_e:
                     self.spec.specialAbility()
             if self.team=="RED":
@@ -43,5 +44,6 @@ class Player:
                     bullet=projectile(self.x,self.y,VELOCITYPLACEHOLDER,DAMAGEPLACEHOLDER,self.team,IMAGEPLACEHOLDER)
                     sprites.add(bullet)
                     projectiles.add(bullet)
+                    player.mana-=MANACOSTPLACEHOLDER
                 if event.key==K_o:
                     self.spec.specialAbility()
