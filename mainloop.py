@@ -29,10 +29,12 @@ class Controller:
                     if event.key==K_q:
                         player1=player.player(50,self.height/2,"BLUE",spec1)
                         break
-                    elif event.key==K_q:
+                    elif event.key==K_w:
                         player1=player.player(50,self.height/2,"BLUE",spec2)
-                    elif event.key==K_q:
+                        break
+                    elif event.key==K_e:
                         player1=player.player(50,self.height/2,"BLUE",spec3)
+                        break
         def player2select(self):
             self.background.blit("player2menu.png", (0, 0))
         def mainLoop(self):
