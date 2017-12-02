@@ -14,7 +14,8 @@ class Controller:
         self.height = 600
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.background = pygame.Surface(self.screen.get_size())
-        self.sprites = pygame.sprite.Group((self.player1,) + (self.player2,))
+        self.sprites = pygame.sprite.Group()
+        self.bullets = pygame.sprite.Group()
         def menu_screen(self):
             self.background.blit("startmenu.png", (0,0))
             for event in pygame.event.get():
@@ -28,22 +29,41 @@ class Controller:
                 if event.type==pygame.KEYDOWN:
                     if event.key==K_q:
                         player1=player.player(50,self.height/2,"BLUE",spec1)
+                        Controller.player2select()
                         break
                     elif event.key==K_w:
                         player1=player.player(50,self.height/2,"BLUE",spec2)
+                        Controller.player2select()
                         break
                     elif event.key==K_e:
                         player1=player.player(50,self.height/2,"BLUE",spec3)
+                        Controller.player2select()
                         break
         def player2select(self):
             self.background.blit("player2menu.png", (0, 0))
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == K_u:
+                        player2 = player.player(self.width-50, self.height / 2, "RED", spec1)
+                        Controller.mainLoop()
+                        break
+                    elif event.key == K_i:
+                        player2 = player.player(self.width-50, self.height / 2, "RED", spec2)
+                        Controller.mainLoop()
+                        break
+                    elif event.key == K_o:
+                        player2 = player.player(self.width-50, self.height / 2, "RED", spec3)
+                        Controller.mainLoop()
+                        break
         def mainLoop(self):
-            #start screen here, press button to go to next
-            #player 1 spec select
-            #player 2 spec select
-            #game
             pygame.key.set_repeat(1, 60)
+            sprites.add(player1)
+            sprites.add(player2)
             while True:
+                player1.update()
+                player2.update()
+                if len(bullets.sprites()>0):
+                    bullet.update() #will need to update for uniques as well
                 for event in pygame.event.get():
                     if event.type == pygame.Quit:
                         sys.exit()
