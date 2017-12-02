@@ -25,10 +25,11 @@ class Player:
                 if event.key==K_d:
                     self.x+=self.vel
                 if event.key==K_q:
-                    bullet=projectile(self.x,self.y,VELOCITYPLACEHOLDER,DAMAGEPLACEHOLDER,self.team,IMAGEPLACEHOLDER)
-                    sprites.add(bullet)
-                    projectiles.add(bullet)
-                    player.mana-=MANACOSTPLACEHOLDER
+                    if player.mana>=MANACOSTPLACEHOLDER:
+                        bullet=projectile(self.x,self.y,VELOCITYPLACEHOLDER,DAMAGEPLACEHOLDER,self.team,IMAGEPLACEHOLDER)
+                        sprites.add(bullet)
+                        projectiles.add(bullet)
+                        player.mana-=MANACOSTPLACEHOLDER
                 if event.key==K_e:
                     self.spec.specialAbility()
             if self.team=="RED":
@@ -41,9 +42,12 @@ class Player:
                 if event.key==K_l:
                     self.x+=self.vel
                 if event.key==K_u:
-                    bullet=projectile(self.x,self.y,VELOCITYPLACEHOLDER,DAMAGEPLACEHOLDER,self.team,IMAGEPLACEHOLDER)
-                    sprites.add(bullet)
-                    projectiles.add(bullet)
-                    player.mana-=MANACOSTPLACEHOLDER
+                    if player.mana>=MANACOSTPLACEHOLDER:
+                        bullet=projectile(self.x,self.y,VELOCITYPLACEHOLDER,DAMAGEPLACEHOLDER,self.team,IMAGEPLACEHOLDER)
+                        sprites.add(bullet)
+                        projectiles.add(bullet)
+                        player.mana-=MANACOSTPLACEHOLDER
                 if event.key==K_o:
                     self.spec.specialAbility()
+        if player.mana<100:
+            player.mana+=1
