@@ -4,15 +4,17 @@ import spec2
 import spec3
 import projectile
 
+
 class Player:
     def __init__(self, xcoor, ycoor, velocity, team, spec):
-        self.x=xcoor
-        self.y=ycoor
-        self.vel=velocity
-        self.team=team
-        self.spec=spec
-        player.health=self.spec.hp
-        player.mana=self.spec.mana
+        self.x = xcoor
+        self.y = ycoor
+        self.vel = velocity
+        self.team = team
+        self.spec = spec
+        Player.health = self.spec.hp
+        Player.mana = self.spec.mana
+
     def update(self):
         if event.type==pygame.KEYDOWN:
             if self.team=="BLUE":
