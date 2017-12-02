@@ -15,11 +15,11 @@ class Projectile(pygame.sprite.Sprite):
     def update(self, player): 
         if self.team=="BLUE" and self.x<res[0]:
             self.x+=self.vel
-        elif self.team == "RED" and self.x>res[0]:
+        elif self.team == "RED" and self.x<0:
             self.x-=self.vel
         elif self.team=="BLUE" and self.x>=res[0]:
             self.kill()
-        elif self.team=="RED" and self.x<=res[0]:
+        elif self.team=="RED" and self.x<=0:
             self.kill()
         if self.team != player.team:
             if(self.rect.colliderect(player.rect))==True:
