@@ -22,7 +22,6 @@ class Controller:
         self.rapidfirebullets = pygame.sprite.Group()
         self.punyassbullets = pygame.sprite.Group()
         self.allprojectiles = pygame.sprite.Group()
-        self.map = ""
 
     def start_menu(self):
         background_file = pygame.image.load("assets/start.png")
@@ -113,10 +112,9 @@ class Controller:
     def mainLoop(self, player1, player2):
         pygame.init()
         pygame.key.set_repeat(1, 60)
-        # self.sprites.add(player1)
-        # self.sprites.add(player2)
+        self.sprites.add(player1)
+        self.sprites.add(player2)
         go_to_menu = False
-        player1
         while True:
             player1.updoot(player2)
             player2.updoot(player1)
@@ -125,20 +123,23 @@ class Controller:
             if player2.hp==0:
 
             for event in pygame.event.get():
-                player1.updoot(player2, event)
-                player2.updoot(player1, event)
+                player1location = player1.updoot(player2, event)
+                player2location = player2.updoot(player1, event)
                 if event.type == pygame.QUIT:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         isPaused = True
                         go_to_menu, isPaused = pause_menu.paused(self.screen, isPaused)
+
             self.screen.blit(self.background, self.background_rect())
-            self.sprites.draw(self.background)
+            for aSprite in self.sprites.sprites():
+                self.screen.blit()
 
             pygame.display.flip()
             if go_to_menu:
                 break
+
 
 
 def main():

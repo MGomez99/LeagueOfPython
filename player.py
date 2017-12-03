@@ -4,8 +4,8 @@ import stats
 
 
 class Player(pygame.sprite.Sprite):
-
-    def __init__(self, xcoor, ycoor, team, spec, sprites, all_projectiles, lsbullets, bullets, bigassbullets, punyassbullets):
+    def __init__(self, xcoor, ycoor, team, spec, sprites, all_projectiles, lsbullets, bullets, bigassbullets,
+                 punyassbullets):
         pygame.sprite.Sprite.__init__(self)
         self.res = pygame.display.get_surface().get_size()
         self.x = xcoor
@@ -17,9 +17,14 @@ class Player(pygame.sprite.Sprite):
         self.lsbullets = lsbullets
         self.bigassbullets = bigassbullets
         self.punyassbullets = punyassbullets
-        #sprites
-        self.player_sprite = pygame.image.load("assets/"+spec+team.lower()+".png")
+        self.number_of_shots = 0  # number of bullets shot by player
+        self.number_of_hits = 0  # bullets hit
+        self.accuracy = 0
+        self.image = pygame.image.load("assets/" + spec + team.lower() + ".png")
+        self.rect = self.image.get_rect()
+        self.rect.center = self.x, self.y
         self.sprites = sprites
+        self.res = 800, 600
         # spec stuff
         self.spec = spec
         if self.spec == "spec1":  # lifesteal
@@ -105,9 +110,9 @@ class Player(pygame.sprite.Sprite):
                             self.mana -= 1
                             self.manaspent+1
                             self.number_of_shots += 1
-                    if event.key == pygame.K_e:
+                    if action.key == pygame.K_e:
                         if self.spec == "spec1":
-                            didShoot=self.specialAbility1()
+                            didShoot = self.specialAbility1()
                             if didShoot:
                                 self.number_of_shots += 1
                         elif self.spec == "spec2":
@@ -118,11 +123,10 @@ class Player(pygame.sprite.Sprite):
                             didShoot = self.specialAbility3()
                             if didShoot:
                                 self.number_of_shots += 1
-                    #restrict movement x
-                    if self.x<0:
-                        self.x=0
-                    if self.x>res[0]/2:
-                        self.x=res[0]/2
+                    if self.x < 0:
+                        self.x = 0
+                    if self.x > self.res[0] / 2:
+                        self.x = self.res[0] / 2
 
             if self.team == "RED":
                 if action.key == pygame.K_i:
@@ -147,7 +151,7 @@ class Player(pygame.sprite.Sprite):
                         didShoot = self.specialAbility1()
                         if didShoot:
                             self.number_of_shots += 1
-                    if event.key == K_o:
+                    if action.key == pygame.K_o:
                         if self.spec == "spec1":
                             didShoot = self.specialAbility1()
                             if didShoot:
@@ -160,16 +164,14 @@ class Player(pygame.sprite.Sprite):
                             didShoot = self.specialAbility3()
                             if didShoot:
                                 self.number_of_shots += 1
-                    #restrict movement x
-                    if self.x<res[0]/2:
-                        self.x=res[0]/2
-                    if self.x>res[0]:
-                        self.x=res[0]
-                #restrict movement y
-                if self.y<0:
-                    self.y=0
-                if self.y>res[1]:
-                   self.y=res[1]
+                    if self.x < self.res[0] / 2:
+                        self.x = self.res[0] / 2
+                    if self.x > self.res[0]:
+                        self.x = self.res[0]
+                if self.y < 0:
+                    self.y = 0
+                if self.y > self.res[1]:
+                    self.y = self.res[1]
             if self.mana < 100:
                 self.mana += .1
             if len(self.bullets.sprites()) > 0:
@@ -183,5 +185,3 @@ class Player(pygame.sprite.Sprite):
                             damagetaken+=projectile[bullet].dmg
             if self.number_of_shots>0:
                 self.accuracy = self.number_of_hits/self.number_of_shots
-
-
