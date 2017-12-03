@@ -67,13 +67,13 @@ class Controller:
         while player_select:
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_u:
+                    if event.key == pygame.K_q:
                         player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec1", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                         return player2
-                    elif event.key == pygame.K_i:
+                    elif event.key == pygame.K_w:
                         player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec2", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                         return player2
-                    elif event.key == pygame.K_o:
+                    elif event.key == pygame.K_e:
                         player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec3", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                         return player2
 
@@ -118,6 +118,12 @@ class Controller:
         go_to_menu = False
         player1
         while True:
+            player1.updoot(player2)
+            player2.updoot(player1)
+            if player1.hp==0:
+                
+            if player2.hp==0:
+
             for event in pygame.event.get():
                 player1.updoot(player2, event)
                 player2.updoot(player1, event)

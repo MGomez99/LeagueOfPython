@@ -1,4 +1,5 @@
 import pygame
+import player
 
 
 class Projectile(pygame.sprite.Sprite):
@@ -12,6 +13,7 @@ class Projectile(pygame.sprite.Sprite):
         self.team = team
         self.projectile = pygame.image.load(image)
         self.rect = self.projectile.get_rect()
+        self.hitstat=False
 
     def bullet_travelling(self, enemy_player, bullets_hit):
         if self.team == "BLUE" and self.x < self.res[0]:
@@ -26,5 +28,8 @@ class Projectile(pygame.sprite.Sprite):
             if self.rect.colliderect(enemy_player.rect):
                 enemy_player.health = enemy_player.health - self.dmg
                 self.kill()
+                self.hitstat=True
                 bullets_hit += 1
+            else:
+                hitstat=False
         return bullets_hit
