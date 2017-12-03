@@ -10,8 +10,9 @@ class Projectile(pygame.sprite.Sprite):
         self.vel = velocity
         self.dmg = damage
         self.team = team
-        self.projectile = pygame.image.load(image)
-        self.rect = self.projectile.get_rect()
+        self.image = pygame.image.load(image)
+        self.rect.center = self.x, self.y
+        self.rect = self.image.get_rect()
 
     def bullet_travelling(self, enemy_player, bullets_hit):
         if self.team == "BLUE" and self.x < self.res[0]:
@@ -27,4 +28,6 @@ class Projectile(pygame.sprite.Sprite):
                 enemy_player.health = enemy_player.health - self.dmg
                 self.kill()
                 bullets_hit += 1
+        self.rect.center = self.x, self.y
+        self.rect = self.image.get_rect()
         return bullets_hit
