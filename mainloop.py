@@ -84,8 +84,8 @@ class Controller:
 
     def mainLoop(self):
         pygame.key.set_repeat(1, 60)
-        sprites.add(player1)
-        sprites.add(player2)
+        self.sprites.add(player1)
+        self.sprites.add(player2)
         while True:
             player1.update()
             player2.update()
