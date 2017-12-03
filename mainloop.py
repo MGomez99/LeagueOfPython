@@ -23,7 +23,7 @@ class Controller:
         self.allprojectiles = pygame.sprite.Group()
 
     def start_menu(self):
-        self.background.blit("assets\startmenu.png", (0, 0))
+        self.background.blit("assets/startmenu.png", (0, 0))
         # prompt "press enter to enter select" or something
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -35,7 +35,7 @@ class Controller:
                     sys.exit()
 
     def player1select(self):
-        self.background.blit("assets\player1menu.png", (0, 0))
+        self.background.blit("assets/player1menu.png", (0, 0))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == K_q:
@@ -49,7 +49,7 @@ class Controller:
                     return player1
 
     def player2select(self):
-        self.background.blit("assets\player2menu.png", (0, 0))
+        self.background.blit("assets/player2menu.png", (0, 0))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == K_u:
