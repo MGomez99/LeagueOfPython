@@ -1,5 +1,6 @@
 import mainloop
 import pygame
+import time
 
 
 def paused(display):
@@ -19,3 +20,6 @@ def paused(display):
                 if event.key == K_SPACE:
                     pause = False
                     break
+
+        pygame.display.update()
+        clock.tick(15)

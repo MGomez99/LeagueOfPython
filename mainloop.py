@@ -6,6 +6,9 @@ import spec2
 import spec3
 import sys
 import menu_screen
+import pause_menu
+
+
 
 
 class Controller:
@@ -20,11 +23,14 @@ class Controller:
         self.lsbullets = pygame.sprite.Group()
         self.bigassbullets = pygame.sprite.Group()
         self.punyassbullets = pygame.sprite.Group()
-            for event in pygame.event.get():
-                if event.type==pygame.KEYDOWN:
-                    if event.key==K_RETURN:
-                        Controller.player1select()
-                        break
+        clock = pygame.time.Clock()
+
+        for event in pygame.event.get():
+            if event.type==pygame.KEYDOWN:
+                if event.key==K_RETURN:
+                    Controller.player1select()
+                    break
+
         def player1select(self):
             self.background.blit("player1menu.png", (0, 0))
             for event in pygame.event.get():
@@ -72,7 +78,8 @@ class Controller:
                     if event.type == pygame.KEYDOWN:
                         if event.key == K_ESCAPE:
                             pause = True
-                            pause =
+                            pause_menu.paused()
+
                 self.screen.blit(self.background, (0, 0))
                 self.sprites.draw(self.screen)
                 pygame.display.flip()
