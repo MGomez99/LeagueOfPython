@@ -92,7 +92,11 @@ class Controller:
             self.player1.update()
             self.player2.update()
             if len(self.bullets.sprites()>0):
-                self.bullet.update() # will need to update for uniques as well
+                player.bullet.update()
+            if len(self.lsbullets.sprites()>0):
+                player.lsbullet.update()
+            if len(self.bigassbullets.sprites()>0):
+                player.bigassbullet.update()
             for event in pygame.event.get():
                 if event.type == pygame.Quit:
                     sys.exit()

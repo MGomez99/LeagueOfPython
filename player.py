@@ -1,7 +1,6 @@
 import pygame
 import projectile
 
-
 class Player:
     def __init__(self, xcoor, ycoor, team, spec):
         self.x = xcoor
@@ -13,17 +12,26 @@ class Player:
             self.hp=100
             self.mana=100
             self.vel=5
-            self.image="spec1.png"
+            if self.team=="BLUE":
+                self.image="spec1blue.png"
+            elif self.team=="RED":
+                self.image="spec1red.png"
         elif self.spec==spec2: #rocket launcher
             self.hp=150
             self.mana=100
             self.vel=3
-            self.image="spec2.png"
+            if self.team=="BLUE":
+                self.image="spec2blue.png"
+            elif self.team=="RED":
+                self.image="spec2red.png"
         elif self.spec==spec3: #machine gun
             self.hp=100
             self.mana=100
             self.vel=7
-            self.image="spec3.png"
+            if self.team=="BLUE":
+                self.image="spec3blue.png"
+            elif self.team=="RED":
+                self.image="spec3red.png"
     def specialAbility1(self): #lifesteal
         if self.mana>=10:
             lsbullet=projectile(self.x,self.y,10,10,self.team,spec1special.png)
@@ -76,11 +84,11 @@ class Player:
                 if event.key==K_l:
                     self.x+=self.vel
                 if event.key==K_u:
-                    if player.mana>=MANACOSTPLACEHOLDER:
-                        bullet=projectile(self.x,self.y,VELOCITYPLACEHOLDER,DAMAGEPLACEHOLDER,self.team,IMAGEPLACEHOLDER)
+                    if player.mana>=1:
+                        bullet=projectile(self.x,self.y,10,10,self.team,bullet.png)
                         sprites.add(bullet)
                         bullets.add(bullet)
-                        player.mana-=MANACOSTPLACEHOLDER
+                        player.mana-=1
                 if event.key==K_o:
                     if self.spec==spec1:
                         self.specialAbility1()
