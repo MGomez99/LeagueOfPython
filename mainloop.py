@@ -16,6 +16,10 @@ class Controller:
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.background = pygame.Surface(self.screen.get_size())
         self.sprites = pygame.sprite.Group()
+        self.bullets = pygame.sprite.Group()
+        self.lsbullets = pygame.sprite.Group()
+        self.bigassbullets = pygame.sprite.Group()
+        self.punyassbullets = pygame.sprite.Group()
             for event in pygame.event.get():
                 if event.type==pygame.KEYDOWN:
                     if event.key==K_RETURN:
