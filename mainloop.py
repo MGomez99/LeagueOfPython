@@ -21,7 +21,7 @@ class Controller:
         self.lsbullets = pygame.sprite.Group()
         self.bigassbullets = pygame.sprite.Group()
         self.punyassbullets = pygame.sprite.Group()
-        clock = pygame.time.Clock()
+        self.clock = pygame.time.Clock()
 
     def start_menu(self):
         self.background.blit("startmenu.png", (0,0))
@@ -32,7 +32,8 @@ class Controller:
                     Controller.player1select()
                     Controller.player2select()
                     break
-
+                if event.key == K_ESCAPE:
+                    sys.exit()
 
     def player1select(self):
         self.background.blit("player1menu.png", (0, 0))
@@ -87,7 +88,7 @@ class Controller:
         pygame.key.set_repeat(1, 60)
         self.sprites.add(self.player1)
         self.sprites.add(self.player2)
-
+        go_to_menu = False
         while True:
             self.player1.update()
             self.player2.update()
@@ -102,18 +103,21 @@ class Controller:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == K_ESCAPE:
-                        pause = True
-                        pause_menu.paused()
+                        isPaused = True
+                        go_to_menu = pause_menu.paused(self.display, self.clock)
 
             self.screen.blit(self.background, (0, 0))
             self.sprites.draw(self.screen)
             pygame.display.flip()
+            if go_to_menu:
+                break
 
 
 def main():
-    gameon = Controller()
-    gameon.start_menu()
-    gameon.mainLoop()
+    game_on = Controller()
+    game_on.start_menu()
+    game_on.mainLoop()
+    game_on.start_menu()
 
 
 main()
