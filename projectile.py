@@ -13,7 +13,7 @@ class Projectile(pygame.sprite.Sprite):
         self.projectile = pygame.image.load(image)
         self.rect = self.projectile.get_rect()
 
-    def bullet_travelling(self, player, bullets_hit):
+    def bullet_travelling(self, enemy_player, bullets_hit):
         if self.team == "BLUE" and self.x < self.res[0]:
             self.x += self.vel
         elif self.team == "RED" and self.x < 0:
@@ -22,9 +22,9 @@ class Projectile(pygame.sprite.Sprite):
             self.kill()
         elif self.team == "RED" and self.x <= 0:
             self.kill()
-        if self.team != player.team:
-            if self.rect.colliderect(player.rect):
-                player.health = player.health - self.dmg
+        if self.team != enemy_player.team:
+            if self.rect.colliderect(enemy_player.rect):
+                enemy_player.health = enemy_player.health - self.dmg
                 self.kill()
                 bullets_hit += 1
         return bullets_hit

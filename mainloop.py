@@ -83,13 +83,14 @@ class Controller:
             pygame.time.wait(1000)  # countdown timer pre-game
 
     def mainLoop(self, player1, player2):
+        pygame.init()
         pygame.key.set_repeat(1, 60)
         self.sprites.add(player1)
         self.sprites.add(player2)
         go_to_menu = False
         while True:
-            player1.updoot()
-            player2.updoot()
+            player1.updoot(player2)
+            player2.updoot(player1)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

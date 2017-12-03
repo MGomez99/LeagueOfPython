@@ -6,7 +6,6 @@ import stats
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, xcoor, ycoor, team, spec, all_projectiles, lsbullets, bullets, bigassbullets, punyassbullets):
-        pygame.init()
         self.x = xcoor
         self.y = ycoor
         self.team = team
@@ -48,37 +47,25 @@ class Player(pygame.sprite.Sprite):
     def specialAbility1(self, team):  # lifesteal
         if self.mana >= 10:
             lsbullet = Projectile(self.x, self.y, 10, 10, self.team, "assets/spec1special.png")
-            self.sprites.add(lsbullet)
+            self.allprojectiles.add(lsbullet)
             self.lsbullets.add(lsbullet)
             self.mana -= 10
-            if team == "BLUE":
-                stats.Stats.player1shot+=1
-            elif team == "RED":
-                stats.Stats.player2shot+=1
 
     def specialAbility2(self, team):  # rocket launcher
         if self.mana >= 20:
             bigassbullet = Projectile(self.x, self.y, 5, 25, self.team, "assets/spec2special.png")
-            self.sprites.add(bigassbullet)
+            self.allprojectiles.add(bigassbullet)
             self.bigassbullets.add(bigassbullet)
             self.mana -= 20
-            if team == "BLUE":
-                stats.Stats.player1shot+=1
-            elif team == "RED":
-                stats.Stats.player2shot+=1
 
     def specialAbility3(self, team):  # machine gun
         if self.mana >= 5:
             punyassbullet = Projectile(self.x, self.y, 20, 5, self.team, "assets/spec3special.png")
-            self.sprites.add(punyassbullet)
+            self.allprojectiles.add(punyassbullet)
             self.punyassbullets.add(punyassbullet)
             self.mana -= 5
-            if team == "BLUE":
-                stats.Stats.player1shot+=1
-            elif team == "RED":
-                stats.Stats.player2shot+=1
 
-    def updoot(self):
+    def updoot(self, enemy_player):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if self.team == "BLUE":
@@ -93,17 +80,17 @@ class Player(pygame.sprite.Sprite):
                     if event.key == K_q:
                         if self.mana >= 1:
                             bullet = Projectile(self.x, self.y, 10, 10, self.team, "assets/bullet.png")
-                            self.sprites.add(bullet)
+                            self.allprojectiles.add(bullet)
                             self.bullets.add(bullet)
                             self.mana -= 1
-                            stats.Stats.player1shot+=1
+                            self.number_of_shots += 1
                     if event.key == K_e:
                         if self.spec == "spec1":
                             self.specialAbility1("BLUE")
                         elif self.spec == "spec2":
                             self.specialAbility2("BLUE")
                         elif self.spec == "spec3":
-                            self.specialAbility3()
+                            self.specialAbility3("BLUE")
                         self.number_of_shots += 1
 
                 if self.team == "RED":
@@ -118,7 +105,7 @@ class Player(pygame.sprite.Sprite):
                     if event.key == K_u:
                         if self.mana >= 1:
                             bullet = Projectile(self.x, self.y, 10, 10, self.team, "assets/bullet.png")
-                            self.sprites.add(bullet)
+                            self.allprojectiles.add(bullet)
                             self.bullets.add(bullet)
                             self.mana -= 1
                             self.number_of_shots += 1
@@ -128,7 +115,7 @@ class Player(pygame.sprite.Sprite):
                         elif self.spec == "spec2":
                             self.specialAbility2("RED")
                         elif self.spec == "spec3":
-                            self.specialAbility3()
+                            self.specialAbility3("RED")
                         self.number_of_shots += 1
             if self.mana < 100:
                 self.mana += .1
@@ -138,7 +125,7 @@ class Player(pygame.sprite.Sprite):
             if len(self.allprojectiles > 0):
                 for projectile in self.allprojectiles:
                     for bullet in range(len(projectile)):
-                        self.number_of_hits = projectile[bullet].bullet_travelling(self.number_of_hits)
+                        self.number_of_hits = projectile[bullet].bullet_travelling(enemy_player, self.number_of_hits)
             self.accuracy = self.number_of_hits/self.number_of_shots
 
 
