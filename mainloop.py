@@ -6,8 +6,8 @@ import spec2
 import spec3
 import sys
 import pause_menu
-
-
+import text_to_screen
+import math
 class Controller:
     def __init__(self):
         pygame.init()
@@ -22,27 +22,29 @@ class Controller:
         self.punyassbullets = pygame.sprite.Group()
         clock = pygame.time.Clock()
 
+    def start_menu(self):
+        self.background.blit("startmenu.png", (0,0))
+        # prompt "press enter to enter select" or something
         for event in pygame.event.get():
-            if event.type==pygame.KEYDOWN:
-                if event.key==K_RETURN:
+            if event.type == pygame.KEYDOWN:
+                if event.key == K_RETURN:
                     Controller.player1select()
+                    Controller.player2select()
                     break
+
 
     def player1select(self):
         self.background.blit("player1menu.png", (0, 0))
         for event in pygame.event.get():
-            if event.type==pygame.KEYDOWN:
-                if event.key==K_q:
-                    player1=player.player(50,self.height/2,"BLUE",spec1)
-                    Controller.player2select()
+            if event.type == pygame.KEYDOWN:
+                if event.key == K_q:
+                    player1 = player.player(50,self.height/2,"BLUE",spec1)
                     break
-                elif event.key==K_w:
-                    player1=player.player(50,self.height/2,"BLUE",spec2)
-                    Controller.player2select()
+                elif event.key == K_w:
+                    player1 = player.player(50,self.height/2,"BLUE",spec2)
                     break
-                elif event.key==K_e:
-                    player1=player.player(50,self.height/2,"BLUE",spec3)
-                    Controller.player2select()
+                elif event.key == K_e:
+                    player1 = player.player(50,self.height/2,"BLUE",spec3)
                     break
 
     def player2select(self):
@@ -61,6 +63,24 @@ class Controller:
                     player2 = player.player(self.width-50, self.height / 2, "RED", spec3)
                     Controller.mainLoop()
                     break
+
+    def map_select(self):
+        self.background.blit("mapselect.png")
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key() == K_q:
+                    self.background.blit("mars.png", (0, 0))
+                    break
+                if event.key() == K_w:
+                    self.background.blit("moon.png", (0, 0))
+                    break
+                if event.key() == K_e:
+                    self.background.blit("venus.png", (0, 0))
+                    break
+        for time in range(-5, 0):
+            text = str("Game starting in ", abs(time), ". Get ready!")
+            text_to_screen.tts(self.screen, text, (400, 200))
+            pygame.time.wait(1000)  # countdown timer pre-game
 
     def mainLoop(self):
         pygame.key.set_repeat(1, 60)
@@ -86,6 +106,8 @@ class Controller:
 
 def main():
     gameon = Controller()
-    gameon.menu_screen()
+    gameon.start_menu()
+    gameon.mainLoop()
+
 
 main()
