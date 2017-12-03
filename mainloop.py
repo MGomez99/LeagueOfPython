@@ -7,7 +7,8 @@ import spec3
 import sys
 import pause_menu
 import text_to_screen
-import math
+
+
 class Controller:
     def __init__(self):
         pygame.init()
@@ -84,13 +85,14 @@ class Controller:
 
     def mainLoop(self):
         pygame.key.set_repeat(1, 60)
-        self.sprites.add(player1)
-        self.sprites.add(player2)
+        self.sprites.add(self.player1)
+        self.sprites.add(self.player2)
+
         while True:
-            player1.update()
-            player2.update()
-            if len(bullets.sprites()>0):
-                bullet.update() # will need to update for uniques as well
+            self.player1.update()
+            self.player2.update()
+            if len(self.bullets.sprites()>0):
+                self.bullet.update() # will need to update for uniques as well
             for event in pygame.event.get():
                 if event.type == pygame.Quit:
                     sys.exit()
