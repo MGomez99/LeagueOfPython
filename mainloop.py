@@ -24,14 +24,14 @@ class Controller:
         self.clock = pygame.time.Clock()
 
     def start_menu(self):
-        self.background.blit("startmenu.png", (0,0))
+        self.background.blit("startmenu.png", (0, 0))
         # prompt "press enter to enter select" or something
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == K_RETURN:
-                    Controller.player1select()
-                    Controller.player2select()
-                    break
+                    player1= Controller.player1select()
+                    player2 = Controller.player2select()
+                    return player1, player2
                 if event.key == K_ESCAPE:
                     sys.exit()
 
@@ -41,13 +41,13 @@ class Controller:
             if event.type == pygame.KEYDOWN:
                 if event.key == K_q:
                     player1 = player.player(50,self.height/2,"BLUE",spec1)
-                    break
+                    return player1
                 elif event.key == K_w:
                     player1 = player.player(50,self.height/2,"BLUE",spec2)
-                    break
+                    return player1
                 elif event.key == K_e:
                     player1 = player.player(50,self.height/2,"BLUE",spec3)
-                    break
+                    return player1
 
     def player2select(self):
         self.background.blit("player2menu.png", (0, 0))
@@ -55,16 +55,13 @@ class Controller:
             if event.type == pygame.KEYDOWN:
                 if event.key == K_u:
                     player2 = player.player(self.width-50, self.height / 2, "RED", spec1)
-                    Controller.mainLoop()
-                    break
+                    return player2
                 elif event.key == K_i:
                     player2 = player.player(self.width-50, self.height / 2, "RED", spec2)
-                    Controller.mainLoop()
-                    break
+                    return player2
                 elif event.key == K_o:
                     player2 = player.player(self.width-50, self.height / 2, "RED", spec3)
-                    Controller.mainLoop()
-                    break
+                    return player2
 
     def map_select(self):
         self.background.blit("mapselect.png")
