@@ -17,7 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.number_of_shots = 0  # number of bullets shot by player
         self.number_of_hits = 0  # bullets hit
         self.accuracy = 0
-        self.player_sprite = pygame.image.load("/assets/"+spec+team+".png")
+        self.player_sprite = pygame.image.load("assets/"+spec+team.lower()+".png")
         self.sprites = sprites
         # spec stuff
         self.spec = spec
@@ -77,15 +77,15 @@ class Player(pygame.sprite.Sprite):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if self.team == "BLUE":
-                    if event.key == K_w:
+                    if event.key == pygame.K_w:
                         self.y += self.vel
-                    if event.key == K_a:
+                    if event.key == pygame.K_a:
                         self.x -= self.vel
-                    if event.key == K_s:
+                    if event.key == pygame.K_s:
                         self.y -= self.vel
-                    if event.key == K_d:
+                    if event.key == pygame.K_d:
                         self.x += self.vel
-                    if event.key == K_q:
+                    if event.key == pygame.K_q:
                         if self.mana >= 1:
                             bullet = Projectile(self.x, self.y, 10, 10, self.team, "assets/bullet.png")
                             self.allprojectiles.add(bullet)
@@ -93,7 +93,7 @@ class Player(pygame.sprite.Sprite):
                             self.sprites.add(bullet)
                             self.mana -= 1
                             self.number_of_shots += 1
-                    if event.key == K_e:
+                    if event.key == pygame.K_e:
                         if self.spec == "spec1":
                             didShoot=self.specialAbility1()
                             if didShoot:

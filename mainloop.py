@@ -23,64 +23,89 @@ class Controller:
         self.allprojectiles = pygame.sprite.Group()
 
     def start_menu(self):
-        self.background.blit("assets/startmenu.png", (0, 0))
+        background_file = pygame.image.load("assets/start.png")
+        self.screen.blit(background_file, background_file.get_rect())
+        pygame.display.flip()
         # prompt "press enter to enter select" or something
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == K_RETURN:
-                    player1 = Controller.player1select(self)
-                    player2 = Controller.player2select(self)
-                    return player1, player2
-                if event.key == K_ESCAPE:
-                    sys.exit()
+        time_to_start = True
+        while time_to_start:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        player1 = self.player1select()
+                        player2 = self.player2select()
+                        return player1, player2
+                    if event.key == pygame.K_ESCAPE:
+                        sys.exit()
 
     def player1select(self):
-        self.background.blit("assets/player1menu.png", (0, 0))
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == K_q:
-                    player1 = player.Player(50, self.height / 2, "BLUE", "spec1", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
-                    return player1
-                elif event.key == K_w:
-                    player1 = player.Player(50, self.height / 2, "BLUE", "spec2", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
-                    return player1
-                elif event.key == K_e:
-                    player1 = player.Player(50, self.height / 2, "BLUE", "spec3", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
-                    return player1
+        background_file = pygame.image.load("assets/player1.png")
+        self.screen.blit(background_file, background_file.get_rect())
+        pygame.display.flip()
+        select_player = True
+        while select_player:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q:
+                        player1 = player.Player(50, self.height / 2, "BLUE", "spec1", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
+                        return player1
+                    elif event.key == pygame.K_w:
+                        player1 = player.Player(50, self.height / 2, "BLUE", "spec2", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
+                        return player1
+                    elif event.key == pygame.K_e:
+                        player1 = player.Player(50, self.height / 2, "BLUE", "spec3", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
+                        return player1
 
     def player2select(self):
-        self.background.blit("assets/player2menu.png", (0, 0))
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == K_u:
-                    player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec1", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
-                    return player2
-                elif event.key == K_i:
-                    player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec2", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
-                    return player2
-                elif event.key == K_o:
-                    player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec3", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
-                    return player2
+        background_file = pygame.image.load("assets/player2.png")
+        self.screen.blit(background_file, background_file.get_rect())
+        pygame.display.flip()
+        player_select = True
+        while player_select:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_u:
+                        player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec1", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
+                        return player2
+                    elif event.key == pygame.K_i:
+                        player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec2", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
+                        return player2
+                    elif event.key == pygame.K_o:
+                        player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec3", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
+                        return player2
 
     def map_select(self):
-        self.background.blit("assets/mapselect.png")
+        background_file = pygame.image.load("assets/mapselection.png")
+        self.screen.blit(background_file, background_file.get_rect())
+        pygame.display.flip()
         selecting_map = True
         while selecting_map:
             for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
                 if event.type == pygame.KEYDOWN:
-                    if event.key() == K_q:
-                        self.background.blit("assets/mars.png", (0, 0))
-                        break
-                    if event.key() == K_w:
-                        self.background.blit("assets/moon.png", (0, 0))
-                        break
-                    if event.key() == K_e:
-                        self.background.blit("assets/venus.png", (0, 0))
-                        break
+                    if event.key == pygame.K_q:
+                        bg = pygame.image.load("assets/mars.png")
+                        self.screen.blit(bg, bg.get_rect())
+                        selecting_map = False
+                    if event.key == pygame.K_w:
+                        bg = pygame.image.load("assets/moon.png")
+                        self.screen.blit(bg, bg.get_rect())
+                        selecting_map = False
+                    if event.key == pygame.K_e:
+                        bg = pygame.image.load("assets/venus.png")
+                        self.screen.blit(bg, bg.get_rect())
+                        selecting_map = False
+
+        pygame.display.flip()
         for time in range(-5, 0):
-            text = "Game starting in "+str(abs(time), ". Get ready!")
-            text_to_screen.tts(self.screen, text, (400, 200))
+            text = "Game starting in ", str(abs(time)), ". Get ready!"
+            text = text_to_screen.tts(self.screen, text, 200, 0, 20, (0, 255, 0))
+            pygame.display.flip()
             pygame.time.wait(1000)  # countdown timer pre-game
+            pygame.display.flip()
+            self.screen.blit(bg, bg.get_rect())
+            pygame.display.flip()
 
     def mainLoop(self, player1, player2):
         pygame.init()
@@ -96,7 +121,7 @@ class Controller:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
-                    if event.key == K_ESCAPE:
+                    if event.key == pygame.K_ESCAPE:
                         isPaused = True
                         go_to_menu, isPaused = pause_menu.paused(self.screen, isPaused)
             self.screen.blit(self.background, (0, 0))
@@ -110,7 +135,7 @@ def main():
     game_on = Controller()
     player1, player2 = game_on.start_menu()
     game_on.map_select()
-    game_on.mainLoop(player1, player2,)
+    game_on.mainLoop(player1, player2)
     game_on.start_menu()
 
 

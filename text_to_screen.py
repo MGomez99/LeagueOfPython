@@ -18,4 +18,5 @@ def tts(screen, mytext, x, y, size=40, color=(200, 000, 000), font_type='assets/
     font = pygame.font.Font(font_type, size)
     text = font.render(text, True, color)
     screen.blit(text, (x, y))
+    return text
 
