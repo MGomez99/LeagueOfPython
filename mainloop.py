@@ -118,9 +118,6 @@ class Controller:
         while True:
             player1.updoot(player2)
             player2.updoot(player1)
-            if player1.hp==0:
-                
-            if player2.hp==0:
 
             for event in pygame.event.get():
                 player1location = player1.updoot(player2, event)
