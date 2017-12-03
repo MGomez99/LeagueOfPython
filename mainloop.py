@@ -19,7 +19,8 @@ class Controller:
         self.sprites = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
         self.lsbullets = pygame.sprite.Group()
-        self.bigassbullets = pygame.sprite.Group()
+        self.rockets = pygame.sprite.Group()
+        self.rapidfirebullets = pygame.sprite.Group()
         self.punyassbullets = pygame.sprite.Group()
         self.clock = pygame.time.Clock()
 
@@ -40,13 +41,13 @@ class Controller:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == K_q:
-                    player1 = player.player(50,self.height/2,"BLUE",spec1)
+                    player1 = player.Player(self.screen, 50, self.height / 2, "BLUE", "spec1", self.sprites, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                     return player1
                 elif event.key == K_w:
-                    player1 = player.player(50,self.height/2,"BLUE",spec2)
+                    player1 = player.Player(self.screen, 50, self.height / 2, "BLUE", "spec2", self.sprites, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                     return player1
                 elif event.key == K_e:
-                    player1 = player.player(50,self.height/2,"BLUE",spec3)
+                    player1 = player.Player(self.screen, 50, self.height / 2, "BLUE", "spec3", self.sprites, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                     return player1
 
     def player2select(self):
@@ -54,13 +55,13 @@ class Controller:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == K_u:
-                    player2 = player.player(self.width-50, self.height / 2, "RED", spec1)
+                    player2 = player.Player(self.screen, self.width - 50, self.height / 2, "RED", "spec1", self.sprites, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                     return player2
                 elif event.key == K_i:
-                    player2 = player.player(self.width-50, self.height / 2, "RED", spec2)
+                    player2 = player.Player(self.screen, self.width - 50, self.height / 2, "RED", "spec2", self.sprites, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                     return player2
                 elif event.key == K_o:
-                    player2 = player.player(self.width-50, self.height / 2, "RED", spec3)
+                    player2 = player.Player(self.screen, self.width - 50, self.height / 2, "RED", "spec3", self.sprites, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                     return player2
 
     def map_select(self):
@@ -87,18 +88,16 @@ class Controller:
         self.sprites.add(player2)
         go_to_menu = False
         while True:
-            player1.update()
-            player2.update()
-            if len(self.bullets.sprites() > 0):
-                self.bullet.update() # will need to update for uniques as well
+            player1.updoot()
+            player2.updoot()
+
             for event in pygame.event.get():
                 if event.type == pygame.Quit:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == K_ESCAPE:
                         isPaused = True
-                        go_to_menu = pause_menu.paused(self.display, self.clock)
-
+                        go_to_menu = pause_menu.paused(self.screen, self.clock, isPaused)
             self.screen.blit(self.background, (0, 0))
             self.sprites.draw(self.screen)
             pygame.display.flip()

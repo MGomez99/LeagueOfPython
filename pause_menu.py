@@ -1,7 +1,7 @@
 import pygame
 
 
-def paused(display, clock):
+def paused(display, clock, isPaused):
     large_text = pygame.font.Font("/assets/spaceage.tts", 115)
     text_object = large_text.render("Paused. Press space to continue or Q to quit.", True, "black")
     pause_surface, pause_rectangle = text_object, text_object.get_rect()
