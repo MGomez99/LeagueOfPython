@@ -7,6 +7,7 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, xcoor, ycoor, team, spec, sprites, all_projectiles, lsbullets, bullets, bigassbullets, punyassbullets):
         pygame.sprite.Sprite.__init__(self)
+        self.res = pygame.display.get_surface().get_size()
         self.x = xcoor
         self.y = ycoor
         self.team = team
@@ -107,6 +108,10 @@ class Player(pygame.sprite.Sprite):
                             didShoot = self.specialAbility3()
                             if didShoot:
                                 self.number_of_shots += 1
+                    if self.x<0:
+                        self.x=0
+                    if self.x>res[0]/2:
+                        self.x=res[0]/2
 
                 if self.team == "RED":
                     if event.key == K_i:
@@ -138,15 +143,24 @@ class Player(pygame.sprite.Sprite):
                             didShoot = self.specialAbility3()
                             if didShoot:
                                 self.number_of_shots += 1
+                    if self.x<res[0]/2:
+                        self.x=res[0]/2
+                    if self.x>res[0]:
+                        self.x=res[0]
+                if self.y<0:
+                    self.y=0
+                if self.y>res[1]:
+                   self.y=res[1]
             if self.mana < 100:
                 self.mana += .1
-            if len(self.bullets.sprites() > 0):
+            if len(self.bullets.sprites()) > 0:
                 self.bullets.update()  # will need to update for uniques as well
                 self.mana += (.1)
-            if len(self.allprojectiles > 0):
+            if len(self.allprojectiles) > 0:
                 for projectile in self.allprojectiles:
                     for bullet in range(len(projectile)):
                         self.number_of_hits = projectile[bullet].bullet_travelling(enemy_player, self.number_of_hits)
-            self.accuracy = self.number_of_hits/self.number_of_shots
+            if self.number_of_shots>0:
+                self.accuracy = self.number_of_hits/self.number_of_shots
 
 
