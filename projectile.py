@@ -11,7 +11,7 @@ class Projectile(pygame.sprite.Sprite):
         self.vel = velocity
         self.dmg = damage
         self.team = team
-        self.image = pygame.image.load(image)
+        self.image = pygame.image_surface.load(image)
         self.rect.center = self.x, self.y
         self.rect = self.image.get_rect()
         self.projectile = pygame.image.load(image)
@@ -36,5 +36,5 @@ class Projectile(pygame.sprite.Sprite):
             else:
                 hitstat=False
         self.rect.center = self.x, self.y
-        self.rect = self.image.get_rect()
+        self.rect = self.image_surface.get_rect()
         return bullets_hit

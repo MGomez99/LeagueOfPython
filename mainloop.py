@@ -133,8 +133,7 @@ class Controller:
                         go_to_menu, isPaused = pause_menu.paused(self.screen, isPaused)
 
             self.screen.blit(self.background, self.background_rect())
-            for aSprite in self.sprites.sprites():
-                self.screen.blit()
+            self.sprites.draw()
 
             pygame.display.flip()
             if go_to_menu:

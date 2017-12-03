@@ -20,8 +20,8 @@ class Player(pygame.sprite.Sprite):
         self.number_of_shots = 0  # number of bullets shot by player
         self.number_of_hits = 0  # bullets hit
         self.accuracy = 0
-        self.image = pygame.image.load("assets/" + spec + team.lower() + ".png")
-        self.rect = self.image.get_rect()
+        self.image_surface = pygame.image.load("assets/" + spec + team.lower() + ".png")
+        self.rect = self.image_surface.get_rect()
         self.rect.center = self.x, self.y
         self.sprites = sprites
         self.res = 800, 600
