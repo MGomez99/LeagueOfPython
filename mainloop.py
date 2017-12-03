@@ -1,12 +1,10 @@
 import pygame
 import player
 import projectile
-import spec1
-import spec2
-import spec3
 import sys
 import pause_menu
 import text_to_screen
+import stats
 
 
 class Controller:
