@@ -25,7 +25,7 @@ class Controller:
         self.clock = pygame.time.Clock()
 
     def start_menu(self):
-        self.background.blit("startmenu.png", (0, 0))
+        self.background.blit("assets\startmenu.png", (0, 0))
         # prompt "press enter to enter select" or something
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -37,7 +37,7 @@ class Controller:
                     sys.exit()
 
     def player1select(self):
-        self.background.blit("player1menu.png", (0, 0))
+        self.background.blit("assets\player1menu.png", (0, 0))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == K_q:
@@ -51,7 +51,7 @@ class Controller:
                     return player1
 
     def player2select(self):
-        self.background.blit("player2menu.png", (0, 0))
+        self.background.blit("assets\player2menu.png", (0, 0))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == K_u:
@@ -65,17 +65,17 @@ class Controller:
                     return player2
 
     def map_select(self):
-        self.background.blit("mapselect.png")
+        self.background.blit("assets\mapselect.png")
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key() == K_q:
-                    self.background.blit("mars.png", (0, 0))
+                    self.background.blit("assets\mars.png", (0, 0))
                     break
                 if event.key() == K_w:
-                    self.background.blit("moon.png", (0, 0))
+                    self.background.blit("assets\moon.png", (0, 0))
                     break
                 if event.key() == K_e:
-                    self.background.blit("venus.png", (0, 0))
+                    self.background.blit("assets\venus.png", (0, 0))
                     break
         for time in range(-5, 0):
             text = str("Game starting in ", abs(time), ". Get ready!")
