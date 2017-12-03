@@ -7,6 +7,7 @@ import spec3
 import sys
 import menu_screen
 
+
 class Controller:
     def __init__(self):
         pygame.init()
@@ -15,9 +16,6 @@ class Controller:
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.background = pygame.Surface(self.screen.get_size())
         self.sprites = pygame.sprite.Group()
-        self.bullets = pygame.sprite.Group()
-        def menu_screen(self):
-            self.background.blit("startmenu.png", (0,0))
             for event in pygame.event.get():
                 if event.type==pygame.KEYDOWN:
                     if event.key==K_RETURN:
@@ -67,10 +65,13 @@ class Controller:
                 for event in pygame.event.get():
                     if event.type == pygame.Quit:
                         sys.exit()
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == K_ESCAPE:
+                            pause = True
+                            pause = 
                 self.screen.blit(self.background, (0, 0))
                 self.sprites.draw(self.screen)
                 pygame.display.flip()
-    def paused(self):
 
 
 def main():
