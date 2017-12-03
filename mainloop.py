@@ -28,8 +28,8 @@ class Controller:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == K_RETURN:
-                    player1 = Controller.player1select()
-                    player2 = Controller.player2select()
+                    player1 = Controller.player1select(self)
+                    player2 = Controller.player2select(self)
                     return player1, player2
                 if event.key == K_ESCAPE:
                     sys.exit()
@@ -39,13 +39,13 @@ class Controller:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == K_q:
-                    player1 = player.Player(50, self.height / 2, "BLUE", "spec1", self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
+                    player1 = player.Player(50, self.height / 2, "BLUE", "spec1", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                     return player1
                 elif event.key == K_w:
-                    player1 = player.Player(50, self.height / 2, "BLUE", "spec2", self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
+                    player1 = player.Player(50, self.height / 2, "BLUE", "spec2", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                     return player1
                 elif event.key == K_e:
-                    player1 = player.Player(50, self.height / 2, "BLUE", "spec3", self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
+                    player1 = player.Player(50, self.height / 2, "BLUE", "spec3", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                     return player1
 
     def player2select(self):
@@ -53,13 +53,13 @@ class Controller:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == K_u:
-                    player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec1", self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
+                    player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec1", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                     return player2
                 elif event.key == K_i:
-                    player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec2", self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
+                    player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec2", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                     return player2
                 elif event.key == K_o:
-                    player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec3", self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
+                    player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec3", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
                     return player2
 
     def map_select(self):
