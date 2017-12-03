@@ -72,7 +72,7 @@ class Controller:
                     if event.type == pygame.KEYDOWN:
                         if event.key == K_ESCAPE:
                             pause = True
-                            pause = 
+                            pause =
                 self.screen.blit(self.background, (0, 0))
                 self.sprites.draw(self.screen)
                 pygame.display.flip()
