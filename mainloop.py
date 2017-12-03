@@ -5,10 +5,7 @@ import spec1
 import spec2
 import spec3
 import sys
-import menu_screen
 import pause_menu
-
-
 
 
 class Controller:
@@ -47,7 +44,7 @@ class Controller:
                     player1=player.player(50,self.height/2,"BLUE",spec3)
                     Controller.player2select()
                     break
-                    
+
     def player2select(self):
         self.background.blit("player2menu.png", (0, 0))
         for event in pygame.event.get():
@@ -73,7 +70,7 @@ class Controller:
             player1.update()
             player2.update()
             if len(bullets.sprites()>0):
-                bullet.update() #will need to update for uniques as well
+                bullet.update() # will need to update for uniques as well
             for event in pygame.event.get():
                 if event.type == pygame.Quit:
                     sys.exit()
