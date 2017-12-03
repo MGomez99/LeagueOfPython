@@ -32,6 +32,8 @@ class Controller:
                     Controller.player1select()
                     Controller.player2select()
                     break
+                if event.key == K_ESCAPE:
+                    sys.exit()
 
     def player1select(self):
         self.background.blit("player1menu.png", (0, 0))
@@ -86,7 +88,7 @@ class Controller:
         pygame.key.set_repeat(1, 60)
         self.sprites.add(self.player1)
         self.sprites.add(self.player2)
-
+        go_to_menu = False
         while True:
             self.player1.update()
             self.player2.update()
@@ -98,17 +100,20 @@ class Controller:
                 if event.type == pygame.KEYDOWN:
                     if event.key == K_ESCAPE:
                         isPaused = True
-                        pause_menu.paused(self.display, self.clock)
+                        go_to_menu = pause_menu.paused(self.display, self.clock)
 
             self.screen.blit(self.background, (0, 0))
             self.sprites.draw(self.screen)
             pygame.display.flip()
+            if go_to_menu:
+                break
 
 
 def main():
     game_on = Controller()
     game_on.start_menu()
     game_on.mainLoop()
+    game_on.start_menu()
 
 
 main()

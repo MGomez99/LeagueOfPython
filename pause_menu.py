@@ -1,7 +1,4 @@
-import mainloop
 import pygame
-import time
-import sys
 
 
 def paused(display, clock):
@@ -22,7 +19,7 @@ def paused(display, clock):
                     isPaused = False
                     break
                 if event.key == K_q:
-                    sys.exit()
+                    return True
 
         pygame.display.update()
         clock.tick(15)
