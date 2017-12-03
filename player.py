@@ -6,6 +6,7 @@ import stats
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, xcoor, ycoor, team, spec, sprites, all_projectiles, lsbullets, bullets, bigassbullets, punyassbullets):
+        pygame.sprite.Sprite.__init__(self)
         self.x = xcoor
         self.y = ycoor
         self.team = team
