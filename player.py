@@ -17,6 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.number_of_shots = 0  # number of bullets shot by player
         self.number_of_hits = 0  # bullets hit
         self.accuracy = 0
+        self.player_sprite = pygame.image.load("/assets/"+spec+team+".png")
         # spec stuff
         self.spec = spec
         if self.spec == "spec1":  # lifesteal
@@ -44,26 +45,29 @@ class Player(pygame.sprite.Sprite):
             elif self.team == "RED":
                 self.image = "assets/spec3red.png"
 
-    def specialAbility1(self, team):  # lifesteal
+    def specialAbility1(self):  # lifesteal
         if self.mana >= 10:
             lsbullet = Projectile(self.x, self.y, 10, 10, self.team, "assets/spec1special.png")
             self.allprojectiles.add(lsbullet)
             self.lsbullets.add(lsbullet)
             self.mana -= 10
+            return True
 
-    def specialAbility2(self, team):  # rocket launcher
+    def specialAbility2(self):  # rocket launcher
         if self.mana >= 20:
             bigassbullet = Projectile(self.x, self.y, 5, 25, self.team, "assets/spec2special.png")
             self.allprojectiles.add(bigassbullet)
             self.bigassbullets.add(bigassbullet)
             self.mana -= 20
+            return True
 
-    def specialAbility3(self, team):  # machine gun
+    def specialAbility3(self):  # machine gun
         if self.mana >= 5:
             punyassbullet = Projectile(self.x, self.y, 20, 5, self.team, "assets/spec3special.png")
             self.allprojectiles.add(punyassbullet)
             self.punyassbullets.add(punyassbullet)
             self.mana -= 5
+            return True
 
     def updoot(self, enemy_player):
         for event in pygame.event.get():
@@ -86,12 +90,17 @@ class Player(pygame.sprite.Sprite):
                             self.number_of_shots += 1
                     if event.key == K_e:
                         if self.spec == "spec1":
-                            self.specialAbility1("BLUE")
+                            didShoot=self.specialAbility1()
+                            if didShoot:
+                                self.number_of_shots += 1
                         elif self.spec == "spec2":
-                            self.specialAbility2("BLUE")
+                            didShoot = self.specialAbility2()
+                            if didShoot:
+                                self.number_of_shots += 1
                         elif self.spec == "spec3":
-                            self.specialAbility3("BLUE")
-                        self.number_of_shots += 1
+                            didShoot = self.specialAbility3()
+                            if didShoot:
+                                self.number_of_shots += 1
 
                 if self.team == "RED":
                     if event.key == K_i:
@@ -111,12 +120,17 @@ class Player(pygame.sprite.Sprite):
                             self.number_of_shots += 1
                     if event.key == K_o:
                         if self.spec == "spec1":
-                            self.specialAbility1("RED")
+                            didShoot = self.specialAbility1()
+                            if didShoot:
+                                self.number_of_shots += 1
                         elif self.spec == "spec2":
-                            self.specialAbility2("RED")
+                            didShoot = self.specialAbility2()
+                            if didShoot:
+                                self.number_of_shots += 1
                         elif self.spec == "spec3":
-                            self.specialAbility3("RED")
-                        self.number_of_shots += 1
+                            didShoot = self.specialAbility3()
+                            if didShoot:
+                                self.number_of_shots += 1
             if self.mana < 100:
                 self.mana += .1
             if len(self.bullets.sprites() > 0):
