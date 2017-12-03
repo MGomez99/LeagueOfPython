@@ -14,6 +14,7 @@ class Controller:
         self.height = 600
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.background = pygame.Surface(self.screen.get_size())
+        self.background_rect = self.background.get_rect
         self.sprites = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
         self.lsbullets = pygame.sprite.Group()
@@ -21,6 +22,7 @@ class Controller:
         self.rapidfirebullets = pygame.sprite.Group()
         self.punyassbullets = pygame.sprite.Group()
         self.allprojectiles = pygame.sprite.Group()
+        self.map = ""
 
     def start_menu(self):
         background_file = pygame.image.load("assets/start.png")
@@ -33,6 +35,7 @@ class Controller:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         player1 = self.player1select()
+
                         player2 = self.player2select()
                         return player1, player2
                     if event.key == pygame.K_ESCAPE:
@@ -85,47 +88,48 @@ class Controller:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
-                        bg = pygame.image.load("assets/mars.png")
-                        self.screen.blit(bg, bg.get_rect())
+                        self.background = pygame.image.load("assets/mars.png")
+                        self.screen.blit(self.background, self.background.get_rect())
                         selecting_map = False
                     if event.key == pygame.K_w:
-                        bg = pygame.image.load("assets/moon.png")
-                        self.screen.blit(bg, bg.get_rect())
+                        self.background = pygame.image.load("assets/moon.png")
+                        self.screen.blit(self.background, self.background.get_rect())
                         selecting_map = False
                     if event.key == pygame.K_e:
-                        bg = pygame.image.load("assets/venus.png")
-                        self.screen.blit(bg, bg.get_rect())
+                        self.background = pygame.image.load("assets/venus.png")
+                        self.screen.blit(self.background, self.background.get_rect())
                         selecting_map = False
-
+        self.background_rect = self.background.get_rect
         pygame.display.flip()
-        for time in range(-5, 0):
-            text = "Game starting in ", str(abs(time)), ". Get ready!"
-            text = text_to_screen.tts(self.screen, text, 200, 0, 20, (0, 255, 0))
-            pygame.display.flip()
-            pygame.time.wait(1000)  # countdown timer pre-game
-            pygame.display.flip()
-            self.screen.blit(bg, bg.get_rect())
-            pygame.display.flip()
+        # for time in range(-5, 0):
+        #     text = "Game starting in ", str(abs(time)), ". Get ready!"
+        #     text = text_to_screen.tts(self.screen, text, 200, 0, 20, (0, 255, 0))
+        #     pygame.display.flip()
+        #     pygame.time.wait(1000)  # countdown timer pre-game
+        #     pygame.display.flip()
+        #     self.screen.blit(bg, bg.get_rect())
+        #     pygame.display.flip()
 
     def mainLoop(self, player1, player2):
         pygame.init()
         pygame.key.set_repeat(1, 60)
-        self.sprites.add(player1)
-        self.sprites.add(player2)
+        # self.sprites.add(player1)
+        # self.sprites.add(player2)
         go_to_menu = False
+        player1
         while True:
-            player1.updoot(player2)
-            player2.updoot(player1)
-
             for event in pygame.event.get():
+                player1.updoot(player2, event)
+                player2.updoot(player1, event)
                 if event.type == pygame.QUIT:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         isPaused = True
                         go_to_menu, isPaused = pause_menu.paused(self.screen, isPaused)
-            self.screen.blit(self.background, (0, 0))
-            self.sprites.draw(self.screen)
+            self.screen.blit(self.background, self.background_rect())
+            self.sprites.draw(self.background)
+
             pygame.display.flip()
             if go_to_menu:
                 break
