@@ -29,7 +29,7 @@ class Controller:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == K_RETURN:
-                    player1= Controller.player1select()
+                    player1 = Controller.player1select()
                     player2 = Controller.player2select()
                     return player1, player2
                 if event.key == K_ESCAPE:
@@ -81,20 +81,16 @@ class Controller:
             text_to_screen.tts(self.screen, text, (400, 200))
             pygame.time.wait(1000)  # countdown timer pre-game
 
-    def mainLoop(self):
+    def mainLoop(self, player1, player2):
         pygame.key.set_repeat(1, 60)
-        self.sprites.add(self.player1)
-        self.sprites.add(self.player2)
+        self.sprites.add(player1)
+        self.sprites.add(player2)
         go_to_menu = False
         while True:
-            self.player1.update()
-            self.player2.update()
-            if len(self.bullets.sprites()>0):
-                player.bullet.update()
-            if len(self.lsbullets.sprites()>0):
-                player.lsbullet.update()
-            if len(self.bigassbullets.sprites()>0):
-                player.bigassbullet.update()
+            player1.update()
+            player2.update()
+            if len(self.bullets.sprites() > 0):
+                self.bullet.update() # will need to update for uniques as well
             for event in pygame.event.get():
                 if event.type == pygame.Quit:
                     sys.exit()
@@ -112,8 +108,8 @@ class Controller:
 
 def main():
     game_on = Controller()
-    game_on.start_menu()
-    game_on.mainLoop()
+    player1, player2 = game_on.start_menu()
+    game_on.mainLoop(player1, player2)
     game_on.start_menu()
 
 
