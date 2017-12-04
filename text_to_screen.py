@@ -1,7 +1,7 @@
 import pygame
 
 
-def tts(screen, mytext, x, y, size=40, color=(200, 000, 000), font_type='assets/spaceage.ttf'):
+def tts(screen, mytext, x, y, font_type, size=40, color=(200, 000, 000)):
     """
     Easy text to screen object
     :param screen: Screen to blit text onto
