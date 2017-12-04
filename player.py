@@ -1,6 +1,5 @@
 import pygame
 from projectile import Projectile
-import stats
 
 
 class Player(pygame.sprite.Sprite):
@@ -141,7 +140,6 @@ class Player(pygame.sprite.Sprite):
                 self.x += self.vel
             if keys[pygame.K_u]:
                 if self.mana >= 1:
-                    print("hi")
                     bullet = Projectile(self.x, self.y, 10, 10, self.team, "assets/bullet.png")
                     self.allprojectiles.add(bullet)
                     self.bullets.add(bullet)

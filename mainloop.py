@@ -4,10 +4,7 @@ import projectile
 import sys
 import pause_menu
 import text_to_screen
-import stats
-import threading
 from threading import Thread
-
 
 
 class Controller:
@@ -75,7 +72,7 @@ class Controller:
         player_select = True
         while player_select:
             for event in pygame.event.get():
-                if event.type == pygame.exit():
+                if event.type == pygame.QUIT:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:

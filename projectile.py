@@ -34,9 +34,8 @@ class Projectile(pygame.sprite.Sprite):
         if self.team == "RED" and self.x <= 0:
             self.kill()
         if self.rect.colliderect(enemy_player.rect):
-            print("work")
+
             enemy_player.hp = enemy_player.hp - self.dmg
-            print(enemy_player.hp)
             self.kill()
             self.hitstat=True
             bullets_hit += 1
