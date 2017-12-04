@@ -5,6 +5,8 @@ import sys
 import pause_menu
 import text_to_screen
 import stats
+import threading
+from threading import Thread
 
 
 class Controller:
@@ -13,7 +15,7 @@ class Controller:
         self.width = 800
         self.height = 600
         self.screen = pygame.display.set_mode((self.width, self.height))
-        self.background = pygame.Surface(self.screen.get_size())
+        self.background = pygame.Surface(self.screen.get_size())  # will become map SURFACE
         self.background_rect = self.background.get_rect
         self.sprites = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
@@ -22,6 +24,7 @@ class Controller:
         self.rapidfirebullets = pygame.sprite.Group()
         self.punyassbullets = pygame.sprite.Group()
         self.allprojectiles = pygame.sprite.Group()
+        self.bgfile = ''
 
     def start_menu(self):
         background_file = pygame.image.load("assets/start.png")
@@ -99,6 +102,7 @@ class Controller:
                         self.screen.blit(self.background, self.background.get_rect())
                         selecting_map = False
         self.background_rect = self.background.get_rect
+        self.bgfile = self.background
         pygame.display.flip()
         # for time in range(-5, 0):
         #     text = "Game starting in ", str(abs(time)), ". Get ready!"
@@ -116,26 +120,34 @@ class Controller:
         self.sprites.add(player2)
         go_to_menu = False
         while True:
-            player1.updoot(player2)
-            player2.updoot(player1)
+            if len(player1.allprojectiles.sprites()) > 0:
+                self.allprojectiles.add(player1.allprojectiles)
+            if len(player2.allprojectiles.sprites()) > 0:
+                self.allprojectiles.add(player2.allprojectiles)
+            if len(self.allprojectiles.sprites()) > 0:
+                for shot in self.allprojectiles.sprites():
+                    if shot.team == 'BLUE':
+                        player1.number_of_hits = shot.bullet_travelling(player2, player1.number_of_hits)
+                    if shot.team == 'RED':
+                        player2.number_of_hits = shot.bullet_travelling(player1, player2.number_of_hits)
 
             for event in pygame.event.get():
-                player1location = player1.updoot(player2, event)
-                player2location = player2.updoot(player1, event)
                 if event.type == pygame.QUIT:
                     sys.exit()
+                keys = pygame.key.get_pressed()
+                Thread(target=(player1.updoot(player1.number_of_hits, event, keys))).start()
+                Thread(target=player2.updoot(player2.number_of_hits, event, keys)).start()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         isPaused = True
                         go_to_menu, isPaused = pause_menu.paused(self.screen, isPaused)
-
-            self.screen.blit(self.background, self.background_rect())
-            self.sprites.draw()
-
+            self.sprites.add(player1.sprites)
+            self.sprites.add(player2.sprites)
+            self.screen.blit(self.bgfile, self.bgfile.get_rect())
+            self.sprites.draw(self.screen)
             pygame.display.flip()
             if go_to_menu:
                 break
-
 
 
 def main():
