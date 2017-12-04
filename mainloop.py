@@ -113,6 +113,13 @@ class Controller:
         #     self.screen.blit(bg, bg.get_rect())
         #     pygame.display.flip()
 
+    def gameOver(self, player1, player2):
+        if player1.hp <= 0:
+            game_over_bg = pygame.image.load("assets/player2win.png")
+        elif player2.hp <= 0:
+            game_over_bg = pygame.image.load("assets/player1win.png")
+        self.screen.blit(game_over_bg, game_over_bg.get_rect())
+
     def mainLoop(self, player1, player2):
         pygame.init()
         pygame.key.set_repeat(1, 60)
@@ -135,9 +142,9 @@ class Controller:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 keys = pygame.key.get_pressed()
-                Thread(target=(player1.updoot(player1.number_of_hits, event, keys))).start()
-                Thread(target=player2.updoot(player2.number_of_hits, event, keys)).start()
-                if event.type == pygame.KEYDOWN:
+                Thread(target=(player1.updoot(player1.number_of_hits, event, keys))).start()  # update p1
+                Thread(target=player2.updoot(player2.number_of_hits, event, keys)).start()  # update p2
+                if event.type == pygame.KEYDOWN:  # pause
                     if event.key == pygame.K_ESCAPE:
                         isPaused = True
                         go_to_menu, isPaused = pause_menu.paused(self.screen, isPaused)
@@ -146,6 +153,8 @@ class Controller:
             self.screen.blit(self.bgfile, self.bgfile.get_rect())
             self.sprites.draw(self.screen)
             pygame.display.flip()
+            if player1.hp <= 0 or player2.hp <= 0:
+                self.gameOver(player1, player2)  # game over screen, blit stuff and ask for replay
             if go_to_menu:
                 break
 

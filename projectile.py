@@ -25,16 +25,17 @@ class Projectile(pygame.sprite.Sprite):
             self.x -= self.vel
         if self.team == "BLUE" and self.x >= self.res[0]:
             self.kill()
-        if self.team == "RED" and self.x >= 0:
+        if self.team == "RED" and self.x <= 0:
             self.kill()
-        if self.team != enemy_player.team:
-            if self.rect.colliderect(enemy_player.rect):
-                enemy_player.hp = enemy_player.hp - self.dmg
-                self.kill()
-                self.hitstat=True
-                bullets_hit += 1
-            else:
-                hitstat=False
+        if self.rect.colliderect(enemy_player.rect):
+            print("work")
+            enemy_player.hp = enemy_player.hp - self.dmg
+            print(enemy_player.hp)
+            self.kill()
+            self.hitstat=True
+            bullets_hit += 1
+        else:
+            hitstat=False
         self.rect = self.image.get_rect()
         self.rect.center = self.x, self.y
         return bullets_hit
