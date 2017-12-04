@@ -19,4 +19,3 @@ def tts(screen, mytext, x, y, font_type, size=40, color=(200, 000, 000)):
     text = font.render(text, True, color)
     screen.blit(text, (x, y))
     return text
-

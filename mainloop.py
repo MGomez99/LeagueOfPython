@@ -1,11 +1,12 @@
+from threading import Thread
 import pygame
+import time
+import sys
 import player
 import projectile
-import sys
 import pause_menu
 import text_to_screen
-import threading
-from threading import Thread
+import tests
 
 
 class Controller:
@@ -24,6 +25,7 @@ class Controller:
         self.punyassbullets = pygame.sprite.Group()
         self.allprojectiles = pygame.sprite.Group()
         self.bgfile = ''
+        self.clock = pygame.time.Clock()
 
     def start_menu(self):
         background_file = pygame.image.load("assets/start.png")
@@ -115,25 +117,33 @@ class Controller:
         self.background_rect = self.background.get_rect
         self.bgfile = self.background
         pygame.display.flip()
-        # for time in range(-5, 0):
-        #     x_pos_list = [i for i in range(101, 96)]
-        #     print (x_pos_list)
-        #     start = 0
-        #     for fontsize in range(30, 35):
-        #         if start >= 4:
-        #             start = 0
-        #         text = "Game starting in " + str(abs(time)) + ". Get ready!"
-        #         text_to_screen.tts(self.screen, text, x_pos_list[start], 300, 'assets/spaceage.ttf', fontsize, (0, 255, 0))
-        #         start += 1
-        #         pygame.display.flip()
-        #         pygame.time.wait(100)
-        #         self.screen.blit(self.bgfile, self.bgfile.get_rect())
-        #         pygame.display.flip()
-        #
-        #
-        #     pygame.time.wait(1000)
-        #     self.screen.blit(self.bgfile, self.bgfile.get_rect())
-        #     pygame.display.flip()
+        # some countdown timer shit that pretty much works, don't judge
+
+        for timer in range(-5, 0):
+            start_time = time.time()
+            total_time = 0
+            self.screen.blit(self.bgfile, self.bgfile.get_rect())
+            pygame.display.flip()
+            for font_size in range(30, 100, 1):
+                current_time = time.time()
+                total_time = current_time - start_time
+                self.screen.blit(self.bgfile, self.bgfile.get_rect())
+                pygame.display.flip()
+                text = str(abs(timer))
+                rendered_text = pygame.font.Font('assets/spaceage.ttf', font_size).render(text, True, (255, 0, 0))
+                text_rect = rendered_text.get_rect(center=(400, 300))
+
+                self.screen.blit(rendered_text, text_rect)
+                pygame.display.flip()
+                if total_time >= 1:
+                    break
+            self.screen.blit(self.bgfile, self.bgfile.get_rect())
+            pygame.display.flip()
+
+
+            # pygame.time.wait(1000)
+
+            # pygame.display.flip()
 
     def gameOver(self, player1, player2):
         isRunning = True
