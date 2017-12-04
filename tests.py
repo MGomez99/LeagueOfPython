@@ -1,4 +1,4 @@
-import gameFiles  # lots of files
+import mainloop.py
 
 
 def main():

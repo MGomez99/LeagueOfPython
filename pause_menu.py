@@ -5,6 +5,12 @@ import os
 
 
 def paused(display, isPaused):
+    '''
+    This function paused the game
+    :param display: pygame display
+    :param isPaused: is the game paused?
+    :return: boolean for going to menu, is the game paused?
+    '''
     text = "Paused. Press space to continue or backspace to quit."
     tts(display, text, 50, 200, 'assets/spaceage.ttf', 20, (0, 255, 0))
     # pause_surface, pause_rectangle = text_object, text_object.get_rect()

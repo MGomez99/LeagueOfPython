@@ -19,6 +19,12 @@ class Projectile(pygame.sprite.Sprite):
         self.hitstat=False
 
     def bullet_travelling(self, enemy_player, bullets_hit):
+        '''
+        Updates bullets
+        :param enemy_player: not friendly player
+        :param bullets_hit: num of bullets hit
+        :return: bullets hit
+        '''
         if self.team == "BLUE" and self.x < self.res[0]:
             self.x += self.vel
         if self.team == "RED" and self.x > 0:

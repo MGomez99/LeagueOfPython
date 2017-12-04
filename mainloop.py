@@ -9,6 +9,7 @@ import threading
 from threading import Thread
 
 
+
 class Controller:
     def __init__(self):
         pygame.init()
@@ -35,6 +36,8 @@ class Controller:
         time_to_start = True
         while time_to_start:
             for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         player1 = self.player1select()
@@ -50,6 +53,8 @@ class Controller:
         select_player = True
         while select_player:
             for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
                         player1 = player.Player(50, self.height / 2, "BLUE", "spec1", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
@@ -70,6 +75,8 @@ class Controller:
         player_select = True
         while player_select:
             for event in pygame.event.get():
+                if event.type == pygame.exit():
+                    sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
                         player2 = player.Player(self.width - 50, self.height / 2, "RED", "spec1", self.sprites, self.allprojectiles, self.lsbullets, self.bullets, self.rockets, self.rapidfirebullets)
