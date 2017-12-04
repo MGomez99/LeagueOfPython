@@ -4,6 +4,7 @@ import projectile
 import sys
 import pause_menu
 import text_to_screen
+import threading
 from threading import Thread
 
 
