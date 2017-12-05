@@ -51,7 +51,7 @@ class Player(pygame.sprite.Sprite):
             self.maxhp = 250
             self.hp = self.maxhp
             self.mana = 100
-            self.vel = 13
+            self.vel = 12
             if self.team == "BLUE":
                 self.imagefile = "assets/spec3blue.png"
             elif self.team == "RED":
@@ -64,26 +64,26 @@ class Player(pygame.sprite.Sprite):
         self.damagetaken = 0
 
     def specialAbility1(self):  # lifesteal
-        if self.mana >= 10:
+        if self.mana >= 5:
             lsbullet = Projectile(self.x, self.y, 5, 10, self.team, "assets/spec1special.png")
             self.allprojectiles.add(lsbullet)
             self.lsbullets.add(lsbullet)
             self.sprites.add(lsbullet)
-            self.mana -= 10
-            self.manaspent + 10
+            self.mana -= 5
+            self.manaspent + 5
             return True
 
     def specialAbility2(self):  # rocket launcher
-        if self.mana >= 20:
+        if self.mana >= 5:
             if self.team == 'BLUE':
-                bigassbullet = Projectile(self.x, self.y, 2.5, 25, self.team, "assets/Rocket(blue).png")
+                bigassbullet = Projectile(self.x, self.y, 4, 40, self.team, "assets/Rocket(blue).png")
             if self.team == 'RED':
-                bigassbullet = Projectile(self.x, self.y, 2.5, 25, self.team, "assets/Rocket(red).png")
+                bigassbullet = Projectile(self.x, self.y, 4, 40, self.team, "assets/Rocket(red).png")
             self.allprojectiles.add(bigassbullet)
             self.bigassbullets.add(bigassbullet)
             self.sprites.add(bigassbullet)
-            self.mana -= 20
-            self.manaspent += 20
+            self.mana -= 5
+            self.manaspent += 5
             return True
 
     def specialAbility3(self):  # machine gun

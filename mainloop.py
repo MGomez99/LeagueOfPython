@@ -244,7 +244,6 @@ class Controller:
                 keys = pygame.key.get_pressed()
                 Thread(target=(player1.updoot(player1.number_of_hits, event, keys))).start()  # update p1
                 Thread(target=player2.updoot(player2.number_of_hits, event, keys)).start()  # update p2
-                print(player2.allprojectiles.sprites())
                 if event.type == pygame.KEYDOWN:  # pause
                     if event.key == pygame.K_ESCAPE:
                         isPaused = True
