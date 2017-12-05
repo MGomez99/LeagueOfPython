@@ -18,7 +18,7 @@ class Projectile(pygame.sprite.Sprite):
         self.rect.center = self.x, self.y
         self.hitstat=False
 
-    def bullet_travelling(self, enemy_player, bullets_hit):
+    def bullet_travelling(self, ally_player, enemy_player, bullets_hit):
         '''
         Updates bullets
         :param enemy_player: not friendly player
@@ -34,8 +34,15 @@ class Projectile(pygame.sprite.Sprite):
         if self.team == "RED" and self.x <= 0:
             self.kill()
         if self.rect.colliderect(enemy_player.rect):
-
             enemy_player.hp = enemy_player.hp - self.dmg
+
+            #lifesteal bullet
+            if self in ally_player.lsbullets.sprites():
+                if ally_player.hp<ally_player.maxhp:
+                    ally_player.hp += self.dmg
+                if ally_player.hp>ally_player.maxhp:
+                    ally_player.hp == ally_player.maxhp
+
             self.kill()
             self.hitstat=True
             bullets_hit += 1

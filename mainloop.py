@@ -155,6 +155,63 @@ class Controller:
             elif player2.hp <= 0:
                 game_over_bg = pygame.image.load("assets/player1win.png")
             self.screen.blit(game_over_bg, game_over_bg.get_rect())
+            #statistics
+            title1_text = pygame.font.Font('assets/spaceage.ttf', 30).render("PLAYER 1", True, (0, 0, 0))
+            title1_rect = title1_text.get_rect(left=100, top=350)
+            self.screen.blit(title1_text, title1_rect)
+            title2_text = pygame.font.Font('assets/spaceage.ttf', 30).render("PLAYER 2", True, (0, 0, 0))
+            title2_rect = title2_text.get_rect(left=400, top=350)
+            self.screen.blit(title2_text, title2_rect)
+            #number of shots
+            numofshots1_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Number of shots: "+str(player1.number_of_shots), True, (0, 0, 0))
+            numofshots1_rect = numofshots1_text.get_rect(left=100, top=400)
+            self.screen.blit(numofshots1_text, numofshots1_rect)
+            numofshots2_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Number of shots: " + str(player2.number_of_shots), True, (0, 0, 0))
+            numofshots2_rect = numofshots2_text.get_rect(left=400, top=400)
+            self.screen.blit(numofshots2_text, numofshots2_rect)
+            #number of hits
+            numofhits1_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Number of hits: " + str(player1.number_of_hits), True, (0, 0, 0))
+            numofhits1_rect = numofhits1_text.get_rect(left=100, top=410)
+            self.screen.blit(numofhits1_text, numofhits1_rect)
+            numofhits2_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Number of hits: " + str(player2.number_of_hits), True, (0, 0, 0))
+            numofhits2_rect = numofhits2_text.get_rect(left=400, top=410)
+            self.screen.blit(numofhits2_text, numofhits2_rect)
+            #accuracy
+            if player1.number_of_shots>0:
+                acc1=str(round(player1.number_of_hits/player1.number_of_shots,2)*100)+"%"
+            else:
+                acc1="N/A"
+            if player2.number_of_shots>0:
+                acc2=str(round(player2.number_of_hits/player2.number_of_shots,2)*100)+"%"
+            else:
+                acc2="N/A"
+            acc1_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Accuracy: " + acc1, True, (0, 0, 0))
+            acc1_rect = acc1_text.get_rect(left=100, top=420)
+            self.screen.blit(acc1_text, acc1_rect)
+            acc2_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Accuracy: " + acc2, True, (0, 0, 0))
+            acc2_rect = acc2_text.get_rect(left=400, top=420)
+            self.screen.blit(acc2_text, acc2_rect)
+            #damage taken
+            dmg1_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Damage taken: " + str(player1.damagetaken), True, (0, 0, 0))
+            dmg1_rect = acc1_text.get_rect(left=100, top=430)
+            self.screen.blit(dmg1_text, dmg1_rect)
+            dmg2_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Damage taken: " + str(player2.damagetaken), True, (0, 0, 0))
+            dmg2_rect = acc1_text.get_rect(left=400, top=430)
+            self.screen.blit(dmg2_text, dmg2_rect)
+            #mana spent
+            mana1_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Mana spent: " + str(player1.manaspent), True, (0, 0, 0))
+            mana1_rect = mana1_text.get_rect(left=100, top=440)
+            self.screen.blit(mana1_text, mana1_rect)
+            mana2_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Mana spent: " + str(player2.manaspent), True, (0, 0, 0))
+            mana2_rect = mana1_text.get_rect(left=400, top=440)
+            self.screen.blit(mana2_text, mana2_rect)
+            #final health
+            hp1_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Final health: " + str(player1.hp), True, (0, 0, 0))
+            hp1_rect = hp1_text.get_rect(left=100, top=450)
+            self.screen.blit(hp1_text, hp1_rect)
+            hp2_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Final health: " + str(player2.hp), True, (0, 0, 0))
+            hp2_rect = hp2_text.get_rect(left=400, top=450)
+            self.screen.blit(hp2_text, hp2_rect)
             pygame.display.flip()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -177,9 +234,9 @@ class Controller:
             if len(self.allprojectiles.sprites()) > 0:
                 for shot in self.allprojectiles.sprites():
                     if shot.team == 'BLUE':
-                        player1.number_of_hits = shot.bullet_travelling(player2, player1.number_of_hits)
+                        player1.number_of_hits = shot.bullet_travelling(player1,player2, player1.number_of_hits)
                     if shot.team == 'RED':
-                        player2.number_of_hits = shot.bullet_travelling(player1, player2.number_of_hits)
+                        player2.number_of_hits = shot.bullet_travelling(player2,player1, player2.number_of_hits)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -187,16 +244,44 @@ class Controller:
                 keys = pygame.key.get_pressed()
                 Thread(target=(player1.updoot(player1.number_of_hits, event, keys))).start()  # update p1
                 Thread(target=player2.updoot(player2.number_of_hits, event, keys)).start()  # update p2
+                print(player2.allprojectiles.sprites())
                 if event.type == pygame.KEYDOWN:  # pause
                     if event.key == pygame.K_ESCAPE:
                         isPaused = True
                         go_to_menu, isPaused = pause_menu.paused(self.screen, isPaused)
+            if player1.mana < 100: #need to regen mana regardless of event in pygame
+                player1.mana += .05
+            if player1.mana>100: #bugfix
+                player1.mana=100
+            if player2.mana < 100:
+                player2.mana += .05
+            if player2.mana>100: #bugfix
+                player2.mana=100
             self.sprites.add(player1.sprites)
             self.sprites.add(player2.sprites)
             self.screen.blit(self.bgfile, self.bgfile.get_rect())
             self.sprites.draw(self.screen)
+            #players health and mana text
+            #player1 health
+            health1_text = pygame.font.Font('assets/spaceage.ttf', 30).render(str(round(player1.hp)), True, (255, 0, 0))
+            health1_rect = health1_text.get_rect(left=0, top=0)
+            self.screen.blit(health1_text, health1_rect)
+            #player2 health
+            health2_text = pygame.font.Font('assets/spaceage.ttf', 30).render(str(round(player2.hp,2)), True, (255, 0, 0))
+            health2_rect = health2_text.get_rect(left=740, top=0)
+            self.screen.blit(health2_text, health2_rect)
+            #player1 mana
+            mana1_text = pygame.font.Font('assets/spaceage.ttf', 30).render(str(round(player1.mana,2)), True, (0, 0, 255))
+            mana1_rect = mana1_text.get_rect(left=0, top=35)
+            self.screen.blit(mana1_text, mana1_rect)
+            #player2 mana
+            mana2_text = pygame.font.Font('assets/spaceage.ttf', 30).render(str(round(player2.mana,2)), True, (0, 0, 255))
+            mana2_rect = mana2_text.get_rect(left=740, top=35)
+            self.screen.blit(mana2_text, mana2_rect)
             pygame.display.flip()
             if player1.hp <= 0 or player2.hp <= 0:
+                player1.number_of_shots = player1.number_of_shots - len(player1.allprojectiles.sprites())
+                player2.number_of_shots = player2.number_of_shots - len(player2.allprojectiles.sprites())
                 isRunning = False
                 self.gameOver(player1, player2)  # game over screen, blit stuff and ask for replay
             if go_to_menu:
