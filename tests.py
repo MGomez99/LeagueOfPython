@@ -1,6 +1,3 @@
-import mainloop.py
-
-
 def main():
     print("=====TESTING PLAYER MOVEMENT=====")
     testplayer = player.Player()

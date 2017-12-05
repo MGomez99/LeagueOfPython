@@ -1,7 +1,8 @@
-import pygame
 import sys
+
+import pygame
+
 from text_to_screen import tts
-import os
 
 
 def paused(display, isPaused):

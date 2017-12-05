@@ -1,5 +1,4 @@
 import pygame
-import player
 
 
 class Projectile(pygame.sprite.Sprite):
@@ -16,7 +15,7 @@ class Projectile(pygame.sprite.Sprite):
         self.projectile = self.image
         self.rect = self.projectile.get_rect()
         self.rect.center = self.x, self.y
-        self.hitstat=False
+        self.hitstat = False
 
     def bullet_travelling(self, ally_player, enemy_player, bullets_hit):
         '''
@@ -36,18 +35,18 @@ class Projectile(pygame.sprite.Sprite):
         if self.rect.colliderect(enemy_player.rect):
             enemy_player.hp = enemy_player.hp - self.dmg
 
-            #lifesteal bullet
+            # lifesteal bullet
             if self in ally_player.lsbullets.sprites():
-                if ally_player.hp<ally_player.maxhp:
+                if ally_player.hp < ally_player.maxhp:
                     ally_player.hp += self.dmg
-                if ally_player.hp>ally_player.maxhp:
+                if ally_player.hp > ally_player.maxhp:
                     ally_player.hp == ally_player.maxhp
 
             self.kill()
-            self.hitstat=True
+            self.hitstat = True
             bullets_hit += 1
         else:
-            hitstat=False
+            hitstat = False
         self.rect = self.image.get_rect()
         self.rect.center = self.x, self.y
         return bullets_hit

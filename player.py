@@ -1,9 +1,10 @@
 import pygame
+
 from projectile import Projectile
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, xcoor, ycoor, team, spec, sprites, all_projectiles, lsbullets, bullets, bigassbullets,
+    def __init__(self, xcoor, ycoor, team, spec, sprites, lsbullets, bullets, bigassbullets,
                  punyassbullets):
         pygame.sprite.Sprite.__init__(self)
         self.res = pygame.display.get_surface().get_size()
@@ -11,22 +12,22 @@ class Player(pygame.sprite.Sprite):
         self.y = ycoor
         self.team = team
         # projectiles
-        self.allprojectiles = pygame.sprite.Group()
-        self.bullets = bullets
-        self.lsbullets = lsbullets
-        self.bigassbullets = bigassbullets
-        self.punyassbullets = punyassbullets
-        #statistics
+        self.allprojectiles = pygame.sprite.Group()  # All PLAYER projectiles
+        self.bullets = bullets  # "Default Bullets"
+        self.lsbullets = lsbullets  # "LifeSteal Bullets"
+        self.bigassbullets = bigassbullets  # "Rockets"
+        self.punyassbullets = punyassbullets  # "Rapid Fire Bullets"
+        # statistics
         self.number_of_shots = 0  # number of bullets shot by player
         self.number_of_hits = 0  # bullets hit
         self.manaspent = 0
-        self.damagetaken=0
-        self.hp=0
+        self.damagetaken = 0
+        self.hp = 0
         self.image = pygame.image.load("assets/" + spec + team.lower() + ".png")
         self.rect = self.image.get_rect()
         self.rect.center = self.x, self.y
         self.sprites = sprites
-        self.res = 800, 600
+        self.res = 800, 600  # resolution
         # spec stuff
         self.spec = spec
         if self.spec == "spec1":  # lifesteal
