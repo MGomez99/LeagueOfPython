@@ -25,6 +25,7 @@ class Controller:
         self.allprojectiles = pygame.sprite.Group()  # ALL Projectiles, Doesn't conflict w/ anything so it's ok
         self.bgfile = ''  # For changing background, ignore
         self.clock = pygame.time.Clock()  # Used for countdown timer, ignore
+        self.Players = []
 
     def start_menu(self):
         """
@@ -254,12 +255,17 @@ class Controller:
         :return: None
         """
         pygame.init()
-        pygame.key.set_repeat(60, 60)
+        # pygame.key.set_repeat(60, 60)
         self.sprites.add(player1)
         self.sprites.add(player2)
+        self.Players = [player1, player2]
+        print(self.Players)
         go_to_menu = False
         isRunning = True  # Is the game running?
+        pygame.key.set_repeat(10, 10)
+
         while isRunning:
+            # If there's projectiles on the screen
             if len(player1.allprojectiles.sprites()) > 0:
                 self.allprojectiles.add(player1.allprojectiles)
             if len(player2.allprojectiles.sprites()) > 0:
@@ -271,16 +277,34 @@ class Controller:
                     if shot.team == 'RED':
                         player2.number_of_hits = shot.bullet_travelling(player2, player1, player2.number_of_hits)
 
+            for player in self.Players:
+                if player.moving_up == True:  # ACTUAL MOVEMENT
+                    player.y -= player.vel
+                if player.moving_down == True:
+                    player.y += player.vel
+                if player.moving_left == True:
+                    player.x -= player.vel
+                if player.moving_right == True:
+                    player.x += player.vel
+
+            self.sprites.add(player1.sprites)  # refreshing sprite groups and stuff
+            self.sprites.add(player2.sprites)
+            self.screen.blit(self.bgfile, self.bgfile.get_rect())  # drawing sprites
+            self.sprites.draw(self.screen)
+
             for event in pygame.event.get():
+                if event.type == pygame.KEYUP:
+                    continue
                 if event.type == pygame.QUIT:
                     sys.exit()
                 keys = pygame.key.get_pressed()
-                player1.updoot(player1.number_of_hits, event, keys) # update p1
-                player2.updoot(player2.number_of_hits, event, keys)  # update p2
+                player1.updoot(player1.number_of_hits, keys, event)  # update p1
+                player2.updoot(player2.number_of_hits, keys, event)  # update p2
                 if event.type == pygame.KEYDOWN:  # pause
                     if event.key == pygame.K_ESCAPE:
                         isPaused = True
                         go_to_menu, isPaused = pause_menu.paused(self.screen, isPaused)
+
             if player1.mana < 100:  # need to regen mana regardless of event in pygame
                 player1.mana += .05
             if player1.mana > 100:  # bugfix
@@ -289,10 +313,12 @@ class Controller:
                 player2.mana += .05
             if player2.mana > 100:  # bugfix
                 player2.mana = 100
+
             self.sprites.add(player1.sprites)  # refreshing sprite groups and stuff
             self.sprites.add(player2.sprites)
             self.screen.blit(self.bgfile, self.bgfile.get_rect())  # drawing sprites
             self.sprites.draw(self.screen)
+
             # players health and mana text
             # player1 health
             health1_text = pygame.font.Font('assets/spaceage.ttf', 30).render(str(round(player1.hp)), True, (255, 0, 0))
@@ -314,13 +340,14 @@ class Controller:
             mana2_rect = mana2_text.get_rect(left=740, top=35)
             self.screen.blit(mana2_text, mana2_rect)
             pygame.display.flip()
+
             if player1.hp <= 0 or player2.hp <= 0:
                 player1.number_of_shots = player1.number_of_shots - len(player1.allprojectiles.sprites())
                 player2.number_of_shots = player2.number_of_shots - len(player2.allprojectiles.sprites())
                 isRunning = False
                 self.gameOver(player1, player2)  # game over screen, blit stuff and ask for replay
             if go_to_menu:
-                main()
+                main()  # RESTART TO MENU [ Restart Game ]
 
 
 def main():
