@@ -101,7 +101,7 @@ class Controller:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
-                        self.background = pygame.image.load("assets/mars.png")
+                        self.background = pygame.image.load("assets/venus.png")
                         self.screen.blit(self.background, self.background.get_rect())
                         selecting_map = False
                     if event.key == pygame.K_w:
@@ -109,7 +109,7 @@ class Controller:
                         self.screen.blit(self.background, self.background.get_rect())
                         selecting_map = False
                     if event.key == pygame.K_e:
-                        self.background = pygame.image.load("assets/venus.png")
+                        self.background = pygame.image.load("assets/mars.png")
                         self.screen.blit(self.background, self.background.get_rect())
                         selecting_map = False
                     if event.key == pygame.K_BACKSPACE:
