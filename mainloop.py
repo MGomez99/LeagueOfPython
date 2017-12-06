@@ -28,6 +28,7 @@ class Controller:
         self.allprojectiles = pygame.sprite.Group()  # ALL Projectiles, Doesn't conflict w/ anything so it's ok
         self.bgfile = ''  # For changing and resetting background, different use later on than self.background
         self.Players = []  # List of players
+        self.musicplayer = music.Music()
 
     def start_menu(self):
         """
@@ -39,7 +40,7 @@ class Controller:
         pygame.display.flip()
         pygame.key.set_repeat(1, 300)
         time_to_start = True
-        music.Music.playIntro(self)  # plays intro song
+        self.musicplayer.playIntro()  # plays intro song
         while time_to_start:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -202,7 +203,7 @@ class Controller:
         pygame.event.clear()  # no bugs today
         isRunning = True  # Is the game running? Hell yeah it is
         pygame.key.set_repeat(10, 10)
-        music.Music.playMain(self)  # plays main song
+        self.musicplayer.playMain()  # plays main song
 
         while isRunning:
             # If there's projectiles on the screen, update them FIRST
