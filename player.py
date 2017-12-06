@@ -69,12 +69,16 @@ class Player(pygame.sprite.Sprite):
         self.damagetaken = 0
 
         if self.team == "BLUE":
+            self.health_location = (0, 0)
+            self.mana_location = (0, 35)
             self.move_left = pygame.K_a
             self.move_right = pygame.K_d
             self.move_up = pygame.K_w
             self.move_down = pygame.K_s
 
         if self.team == "RED":
+            self.health_location = (740, 0)
+            self.mana_location = (740, 35)
             self.move_left = pygame.K_j
             self.move_right = pygame.K_l
             self.move_up = pygame.K_i
@@ -113,28 +117,63 @@ class Player(pygame.sprite.Sprite):
             self.manaspent += 3
             return True
     def not_moving(self):
+        """
+        resets moving state to not moving
+        :return: none
+        """
         self.moving_left = False
         self.moving_right = False
         self.moving_up = False
         self.moving_down = False
 
     def update_pos(self, keys):
-            self.not_moving()
-            if keys[self.move_left]:
-                self.moving_left = True
-            if keys[self.move_up]:
-                self.moving_up = True
-            if keys[self.move_down]:
-                self.moving_down = True
-            if keys[self.move_right]:
-                self.moving_right = True
+        """
+        Updates everying but movement
+        :param keys: Keys that are currently pressed
+        :return: none
+        """
+        self.not_moving()  # lets assume none are pressed, function checks if they are pressed below
+        if keys[self.move_left]:
+            self.moving_left = True
+        if keys[self.move_up]:
+            self.moving_up = True
+        if keys[self.move_down]:
+            self.moving_down = True
+        if keys[self.move_right]:
+            self.moving_right = True
+    def update_accuracy(self):
+        if self.number_of_shots > 0:
+            self.accuracy = int(self.number_of_hits) / int(self.number_of_shots)
+
 
     def updoot(self, number_of_hits, keys):
+        """
+        Updates everything but movement (pretty much)
+        :param number_of_hits:
+        :param keys:
+        :return: None
+        """
         self.number_of_hits = number_of_hits
-        # Blue Team
-        if self.team == "BLUE":
 
-            if keys[pygame.K_q]:  # ABILITIES
+        if self.team == "BLUE":
+            if self.x < 0:  # BLUE stay inbounds x
+                self.x = 0
+            if self.x > self.res[0] / 2:
+                self.x = self.res[0] / 2
+
+        elif self.team == "RED":
+            if self.x < self.res[0] / 2:  # RED stay inbounds x
+                self.x = self.res[0] / 2
+            if self.x > self.res[0]:
+                self.x = self.res[0]
+
+        if self.y < 0:  # BOTH stay inbounds y
+            self.y = 0
+        elif self.y > self.res[1]:
+            self.y = self.res[1]
+        # ABILITIES and SHOOTING
+        if self.team == "BLUE":
+            if keys[pygame.K_q]:
                 if self.mana >= 1:
                     bullet = Projectile(self.x, self.y, 5, 10, self.team, "assets/bullet.png")
                     self.allprojectiles.add(bullet)
@@ -157,57 +196,35 @@ class Player(pygame.sprite.Sprite):
                     didShoot = self.specialAbility3()
                     if didShoot:
                         self.number_of_shots += 1
-
-            if self.x < 0:  # BLUE stay inbounds x
-                self.x = 0
-            if self.x > self.res[0] / 2:
-                self.x = self.res[0] / 2
-        # Red Team
-        if self.team == "RED":
-
-            if keys[pygame.K_u]:  # SHOOTING N STUFF
+        elif self.team == "RED":
+            if keys[pygame.K_u]:  # Pressing U
                 if self.mana >= 1:
-                    bullet = Projectile(self.x, self.y, 10, 10, self.team, "assets/bullet.png")
+                    bullet = Projectile(self.x, self.y, 5, 10, self.team, "assets/bullet.png")
                     self.allprojectiles.add(bullet)
                     self.bullets.add(bullet)
                     self.sprites.add(bullet)
                     self.mana -= 1
                     self.number_of_shots += 1
-            if keys[pygame.K_o]:
+
+            if keys[pygame.K_o]:  # Pressing O
                 if self.spec == "spec1":
                     didShoot = self.specialAbility1()
                     if didShoot:
                         self.number_of_shots += 1
-                if keys[pygame.K_o]:
-                    if self.spec == "spec1":
-                        didShoot = self.specialAbility1()
-                        if didShoot:
-                            self.number_of_shots += 1
-                    elif self.spec == "spec2":
-                        didShoot = self.specialAbility2()
-                        if didShoot:
-                            self.number_of_shots += 1
-                    elif self.spec == "spec3":
-                        didShoot = self.specialAbility3()
-                        if didShoot:
-                            self.number_of_shots += 1
-
-            if self.x < self.res[0] / 2:  # RED stay inbounds x
-                self.x = self.res[0] / 2
-            if self.x > self.res[0]:
-                self.x = self.res[0]
-        if self.y < 0:  # BOTH stay inbounds y
-            self.y = 0
-        if self.y > self.res[1]:
-            self.y = self.res[1]
-
-
+                elif self.spec == "spec2":
+                    didShoot = self.specialAbility2()
+                    if didShoot:
+                        self.number_of_shots += 1
+                elif self.spec == "spec3":
+                    didShoot = self.specialAbility3()
+                    if didShoot:
+                        self.number_of_shots += 1
+        self.update_accuracy()
+        self.rect.center = self.x, self.y
+            #_______________________________________Can I remove this Larkin?________________________________________#
             # if len(self.bullets.sprites()) > 0:
             #     for bullet in self.bullets:
             #         self.number_of_hits = bullet.bullet_travelling(enemy_player, self.number_of_hits)
 
             # if projectile[bullet].hitstat:
             #     damagetaken +=projectile[bullet].dmg
-        if self.number_of_shots > 0:
-            self.accuracy = int(self.number_of_hits) / int(self.number_of_shots)
-        self.rect.center = self.x, self.y
