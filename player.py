@@ -112,11 +112,14 @@ class Player(pygame.sprite.Sprite):
             self.mana -= 3
             self.manaspent += 3
             return True
+    def not_moving(self):
+        self.moving_left = False
+        self.moving_right = False
+        self.moving_up = False
+        self.moving_down = False
 
-    def updoot(self, number_of_hits, keys, event):
-        self.number_of_hits = number_of_hits
-
-        if event.type == pygame.KEYDOWN:  # MOVEMENT
+    def update_pos(self, keys):
+            self.not_moving()
             if keys[self.move_left]:
                 self.moving_left = True
             if keys[self.move_up]:
@@ -126,16 +129,9 @@ class Player(pygame.sprite.Sprite):
             if keys[self.move_right]:
                 self.moving_right = True
 
-        if event.type == pygame.KEYUP:  # STILL MOVEMENT
-            if not keys[self.move_left]:
-                self.moving_left = False
-            if not keys[self.move_up]:
-                self.moving_up = False
-            if not keys[self.move_down]:
-                self.moving_down = False
-            if not keys[self.move_right]:
-                self.moving_right = False
-
+    def updoot(self, number_of_hits, keys):
+        self.number_of_hits = number_of_hits
+        # Blue Team
         if self.team == "BLUE":
 
             if keys[pygame.K_q]:  # ABILITIES
@@ -147,11 +143,12 @@ class Player(pygame.sprite.Sprite):
                     self.mana -= 1
                     self.manaspent += 1
                     self.number_of_shots += 1
+
             if keys[pygame.K_e]:
                 if self.spec == "spec1":
-                    didShoot = self.specialAbility1()
+                    didShoot = self.specialAbility1()  # returns true or false cause checking for mana
                     if didShoot:
-                        self.number_of_shots += 1
+                        self.number_of_shots += 1  # shoots if true, same for all
                 elif self.spec == "spec2":
                     didShoot = self.specialAbility2()
                     if didShoot:
@@ -161,12 +158,11 @@ class Player(pygame.sprite.Sprite):
                     if didShoot:
                         self.number_of_shots += 1
 
-                self.x += self.vel
             if self.x < 0:  # BLUE stay inbounds x
                 self.x = 0
             if self.x > self.res[0] / 2:
                 self.x = self.res[0] / 2
-
+        # Red Team
         if self.team == "RED":
 
             if keys[pygame.K_u]:  # SHOOTING N STUFF
