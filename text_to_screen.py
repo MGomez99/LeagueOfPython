@@ -3,12 +3,12 @@ import pygame
 
 def tts(screen, mytext, x, y, font_type, size=40, color=(200, 000, 000)):
     """
-    Easy text to screen object
+    Easy text to screen object. Used by pause_menu cause laziness
     :param screen: Screen to blit text onto
     :param mytext: whatever text you want on the screen
     :param x: x coordinate
     :param y: y coordinate
-    :param size: font zise
+    :param size: font size
     :param color: color of text
     :param font_type: font to use, defaults to space age
     :return: none
