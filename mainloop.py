@@ -5,6 +5,7 @@ import pause_menu
 import player
 import Stats
 import health_and_mana
+import music
 
 class Controller:
     def __init__(self):
@@ -37,6 +38,7 @@ class Controller:
         pygame.display.flip()
         pygame.key.set_repeat(1, 300)
         time_to_start = True
+        music.Music.playIntro(self) #plays intro song
         while time_to_start:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -199,6 +201,8 @@ class Controller:
         pygame.event.clear()  # no bugs today
         isRunning = True  # Is the game running? Hell yeah it is
         pygame.key.set_repeat(10, 10)
+        music.Music.playMain(self) #plays main song
+
 
         while isRunning:
             # If there's projectiles on the screen, update them FIRST
