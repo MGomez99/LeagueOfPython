@@ -1,5 +1,6 @@
 import sys
 import EEgg
+import music
 import pygame
 from text_to_screen import tts
 
@@ -44,4 +45,5 @@ def paused(display, isPaused):
             # anything you wanna see for the easter egg goes here
             print("Konami code! Larkin is hardstuck plat 5 LUL")
             input_code = ['', '', '', '', '', '', '', '', '', '']
+            music.easterEgg()
             easter_egg = False

@@ -1,5 +1,4 @@
 import pygame
-import player
 
 
 def show_resources(players, screen):

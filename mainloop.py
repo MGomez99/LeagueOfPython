@@ -11,7 +11,7 @@ import music
 class Controller:
     def __init__(self):
         """
-        Has most variable thats needed throughout the game for looping, others are stored by each player
+        Has most variable that are needed throughout the game for looping, others are stored by each player
         """
         pygame.init()
         self.width = 800
@@ -28,7 +28,6 @@ class Controller:
         self.allprojectiles = pygame.sprite.Group()  # ALL Projectiles, Doesn't conflict w/ anything so it's ok
         self.bgfile = ''  # For changing and resetting background, different use later on than self.background
         self.Players = []  # List of players
-        self.musicplayer = music.Music()
 
     def start_menu(self):
         """
@@ -40,7 +39,7 @@ class Controller:
         pygame.display.flip()
         pygame.key.set_repeat(1, 300)
         time_to_start = True
-        self.musicplayer.playIntro()  # plays intro song
+        music.playIntro()  # plays intro song
         while time_to_start:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -203,7 +202,7 @@ class Controller:
         pygame.event.clear()  # no bugs today
         isRunning = True  # Is the game running? Hell yeah it is
         pygame.key.set_repeat(10, 10)
-        self.musicplayer.playMain()  # plays main song
+        music.playMain()  # plays main song
 
         while isRunning:
             # If there's projectiles on the screen, update them FIRST

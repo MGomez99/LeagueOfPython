@@ -1,13 +1,40 @@
 import pygame
 
 
-class Music:
-    def playIntro(self):
-        # plays the intro song
-        pygame.mixer.music.load("assets/introsong.mp3")
-        pygame.mixer.music.play(-1)
+def playIntro():
+    """
+    plays intro song
+    :return: None
+    """
 
-    def playMain(self):
-        # plays the main song for the game
-        pygame.mixer.music.load("assets/mainsong.mp3")
-        pygame.mixer.music.play(-1)
+    # plays the intro song
+    pygame.mixer.music.load("assets/introsong.ogg")
+    pygame.mixer.music.play(-1)
+
+
+def playMain():
+    """
+    plays main song
+    :return: None
+    """
+
+    # plays the main song for the game
+    pygame.mixer.music.load("assets/mainsong.ogg")
+    pygame.mixer.music.play(-1)
+
+
+def playGameOver():
+    """
+    plays game over song
+    :return: None
+    """
+    pygame.mixer.music.load("assets/gameover.ogg")
+    pygame.mixer.music.play(-1)
+
+def easterEgg():
+    """
+    plays EE song
+    :return: None
+    """
+    pygame.mixer.music.load("assets/lul.ogg")
+    pygame.mixer.music.play(-1)
