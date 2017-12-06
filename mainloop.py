@@ -174,6 +174,7 @@ class Controller:
         :return: None
         """
         isRunning = True
+        music.playGameOver()
         while isRunning:
             keys = pygame.key.get_pressed()
             Stats.show_stats(player1, player2, self.screen)

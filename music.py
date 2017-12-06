@@ -31,7 +31,7 @@ def playGameOver():
     pygame.mixer.music.load("assets/gameover.ogg")
     pygame.mixer.music.play(-1)
 
-def easterEgg():
+def playEasterEgg():
     """
     plays EE song
     :return: None
