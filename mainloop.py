@@ -139,7 +139,10 @@ class Controller:
         self.countdown()
 
     def countdown(self):
-
+        """
+        Quite literally, countdown timer to start the game
+        :return: None
+        """
         for timer in range(-5, 0):
             start_time = time.time()
             self.screen.blit(self.bgfile, self.bgfile.get_rect())
@@ -211,7 +214,6 @@ class Controller:
                         player2.number_of_hits = shot.bullet_travelling(player2, player1, player2.number_of_hits)
 
             keys = pygame.key.get_pressed()  # Get a boolean dictionary of all pressed keys
-
             for player in self.Players:  # Updates players movement, position, state, projectiles based on keys pressed
                 player.update_pos(keys)
                 if player.moving_up:  # ACTUAL MOVEMENT portion, changing state each frame happens in player.updoot
@@ -225,15 +227,14 @@ class Controller:
                 player.updoot(player.number_of_hits, keys)
             self.refresh_player_sprites(self.Players)  # refresh player sprites
 
-            for event in pygame.event.get():
-
+            for event in pygame.event.get():  # since we use the boolean dict, this is only for pausing
                 if event.type == pygame.QUIT:  # Don't blame ya
                     sys.exit()
-
                 if event.type == pygame.KEYDOWN:  # pause
                     if event.key == pygame.K_ESCAPE:
                         isPaused = True
                         go_to_menu, isPaused = pause_menu.paused(self.screen, isPaused)
+
             for player in self.Players:  # Reminder, self.players is a list of both player objects
                 if player.mana < 100:  # need to regen mana regardless of event in pygame
                     player.mana += .05
