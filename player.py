@@ -6,6 +6,18 @@ from projectile import Projectile
 class Player(pygame.sprite.Sprite):
     def __init__(self, xcoor, ycoor, team, spec, sprites, lsbullets, bullets, bigassbullets,
                  punyassbullets):
+        """
+        Oh boy lots of stuff. Everything the player class needs for function calling
+        :param xcoor: x pos
+        :param ycoor: y pos
+        :param team: BLUE/RED
+        :param spec: specialization(or RPG "Class")1,2,3
+        :param sprites: group of all sprites
+        :param lsbullets: lifesteat bullets
+        :param bullets: normal bullets from default attack
+        :param bigassbullets: rockets
+        :param punyassbullets: machinegun bullets
+        """
         pygame.sprite.Sprite.__init__(self)
         self.res = pygame.display.get_surface().get_size()
         self.x = xcoor
@@ -16,22 +28,26 @@ class Player(pygame.sprite.Sprite):
         self.moving_down = False
         self.team = team
         # projectiles
+
         self.allprojectiles = pygame.sprite.Group()  # All PLAYER projectiles
         self.bullets = bullets  # "Default Bullets"
         self.lsbullets = lsbullets  # "LifeSteal Bullets"
         self.bigassbullets = bigassbullets  # "Rockets"
         self.punyassbullets = punyassbullets  # "Rapid Fire Bullets"
+
         # statistics
         self.number_of_shots = 0  # number of bullets shot by player
         self.number_of_hits = 0  # bullets hit
         self.manaspent = 0
         self.damagetaken = 0
-        self.hp = 0
+        self.accuracy = 0
+        self.hp = 0  # spec dependent, initialize to 0
         self.image = pygame.image.load("assets/" + spec + team.lower() + ".png")
         self.rect = self.image.get_rect()
         self.rect.center = self.x, self.y
         self.sprites = sprites
         self.res = 800, 600  # resolution
+
         # spec stuff
         self.spec = spec
         if self.spec == "spec1":  # lifesteal
@@ -61,12 +77,6 @@ class Player(pygame.sprite.Sprite):
                 self.imagefile = "assets/spec3blue.png"
             elif self.team == "RED":
                 self.imagefile = "assets/spec3red.png"
-        # statistics (also end health, spec)
-        self.number_of_shots = 0  # number of bullets shot by player
-        self.number_of_hits = 0  # bullets hit
-        self.accuracy = 0
-        self.manaspent = 0
-        self.damagetaken = 0
 
         if self.team == "BLUE":
             self.health_location = (0, 0)
@@ -84,7 +94,11 @@ class Player(pygame.sprite.Sprite):
             self.move_up = pygame.K_i
             self.move_down = pygame.K_k
 
-    def specialAbility1(self):  # lifesteal
+    def specialAbility1(self):
+        """
+        Lifesteal Bullets
+        :return: True if player has mana
+        """
         if self.mana >= 5:
             lsbullet = Projectile(self.x, self.y, 5, 10, self.team, "assets/spec1special.png")
             self.allprojectiles.add(lsbullet)
@@ -94,7 +108,11 @@ class Player(pygame.sprite.Sprite):
             self.manaspent + 5
             return True
 
-    def specialAbility2(self):  # rocket launcher
+    def specialAbility2(self):
+        """
+        Rockets
+        :return: True if player has mana
+        """
         if self.mana >= 5:
             if self.team == 'BLUE':
                 bigassbullet = Projectile(self.x, self.y, 4, 40, self.team, "assets/Rocket(blue).png")
@@ -107,7 +125,11 @@ class Player(pygame.sprite.Sprite):
             self.manaspent += 5
             return True
 
-    def specialAbility3(self):  # machine gun
+    def specialAbility3(self):
+        """
+        Machine gun
+        :return: True if player has mana
+        """
         if self.mana >= 5:
             punyassbullet = Projectile(self.x, self.y, 10, 5, self.team, "assets/spec3special.png")
             self.allprojectiles.add(punyassbullet)
@@ -116,10 +138,11 @@ class Player(pygame.sprite.Sprite):
             self.mana -= 3
             self.manaspent += 3
             return True
+
     def not_moving(self):
         """
-        resets moving state to not moving
-        :return: none
+        Resets moving state to not moving
+        :return: None
         """
         self.moving_left = False
         self.moving_right = False
@@ -128,7 +151,7 @@ class Player(pygame.sprite.Sprite):
 
     def update_pos(self, keys):
         """
-        Updates everying but movement
+        Updates movement state
         :param keys: Keys that are currently pressed
         :return: none
         """
@@ -141,10 +164,14 @@ class Player(pygame.sprite.Sprite):
             self.moving_down = True
         if keys[self.move_right]:
             self.moving_right = True
+
     def update_accuracy(self):
+        """
+        Updates accuracy, saves to player
+        :return: None
+        """
         if self.number_of_shots > 0:
             self.accuracy = int(self.number_of_hits) / int(self.number_of_shots)
-
 
     def updoot(self, number_of_hits, keys):
         """
@@ -153,24 +180,23 @@ class Player(pygame.sprite.Sprite):
         :param keys:
         :return: None
         """
-        self.number_of_hits = number_of_hits
+        self.number_of_hits = number_of_hits  # new hits will add to number of hits before this frame
 
         if self.team == "BLUE":
             if self.x < 0:  # BLUE stay inbounds x
                 self.x = 0
             if self.x > self.res[0] / 2:
                 self.x = self.res[0] / 2
-
         elif self.team == "RED":
             if self.x < self.res[0] / 2:  # RED stay inbounds x
                 self.x = self.res[0] / 2
             if self.x > self.res[0]:
                 self.x = self.res[0]
-
         if self.y < 0:  # BOTH stay inbounds y
             self.y = 0
         elif self.y > self.res[1]:
             self.y = self.res[1]
+
         # ABILITIES and SHOOTING
         if self.team == "BLUE":
             if keys[pygame.K_q]:
@@ -182,7 +208,6 @@ class Player(pygame.sprite.Sprite):
                     self.mana -= 1
                     self.manaspent += 1
                     self.number_of_shots += 1
-
             if keys[pygame.K_e]:
                 if self.spec == "spec1":
                     didShoot = self.specialAbility1()  # returns true or false cause checking for mana
@@ -205,7 +230,6 @@ class Player(pygame.sprite.Sprite):
                     self.sprites.add(bullet)
                     self.mana -= 1
                     self.number_of_shots += 1
-
             if keys[pygame.K_o]:  # Pressing O
                 if self.spec == "spec1":
                     didShoot = self.specialAbility1()
@@ -219,8 +243,10 @@ class Player(pygame.sprite.Sprite):
                     didShoot = self.specialAbility3()
                     if didShoot:
                         self.number_of_shots += 1
-        self.update_accuracy()
-        self.rect.center = self.x, self.y
+
+        self.update_accuracy()  # Not much to say
+        self.rect.center = self.x, self.y  # move rect to x,y location stored
+
             #_______________________________________Can I remove this Larkin?________________________________________#
             # if len(self.bullets.sprites()) > 0:
             #     for bullet in self.bullets:

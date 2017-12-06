@@ -3,6 +3,15 @@ import pygame
 
 class Projectile(pygame.sprite.Sprite):
     def __init__(self, xcoor, ycoor, velocity, damage, team, image):
+        """
+        Same as in Player, all varibles needed are initialized here
+        :param xcoor: x pos of bullet
+        :param ycoor: y pos of bullet
+        :param velocity: vel of bullet
+        :param damage: damage of bullet
+        :param team: bullet's shooter's team
+        :param image: image file of bullet
+        """
         self.res = pygame.display.get_surface().get_size()
         pygame.sprite.Sprite.__init__(self)
         self.x = xcoor
@@ -18,12 +27,12 @@ class Projectile(pygame.sprite.Sprite):
         self.hitstat = False
 
     def bullet_travelling(self, ally_player, enemy_player, bullets_hit):
-        '''
+        """
         Updates bullets
         :param enemy_player: not friendly player
         :param bullets_hit: num of bullets hit
         :return: bullets hit
-        '''
+        """
         if self.team == "BLUE" and self.x < self.res[0]:
             self.x += self.vel
         if self.team == "RED" and self.x > 0:
