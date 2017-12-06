@@ -43,7 +43,7 @@ def paused(display, isPaused):
 
         if easter_egg:
             # anything you wanna see for the easter egg goes here
-            print("Konami code! Larkin is hardstuck plat 5 LUL")
+            print("Larkin is hardstuck plat 5 LUL")
             input_code = ['', '', '', '', '', '', '', '', '', '']
             music.playEasterEgg()
             easter_egg = False
