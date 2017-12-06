@@ -24,7 +24,6 @@ class Projectile(pygame.sprite.Sprite):
         self.projectile = self.image
         self.rect = self.projectile.get_rect()
         self.rect.center = self.x, self.y
-        self.hitstat = False
 
     def bullet_travelling(self, ally_player, enemy_player, bullets_hit):
         """
@@ -53,7 +52,6 @@ class Projectile(pygame.sprite.Sprite):
                     ally_player.hp = ally_player.maxhp
 
             self.kill()
-            self.hitstat = True
             bullets_hit += 1
         self.rect = self.image.get_rect()
         self.rect.center = self.x, self.y

@@ -247,10 +247,3 @@ class Player(pygame.sprite.Sprite):
         self.update_accuracy()  # Not much to say
         self.rect.center = self.x, self.y  # move rect to x,y location stored
 
-        # _______________________________________Can I remove this Larkin?________________________________________#
-        # if len(self.bullets.sprites()) > 0:
-        #     for bullet in self.bullets:
-        #         self.number_of_hits = bullet.bullet_travelling(enemy_player, self.number_of_hits)
-
-        # if projectile[bullet].hitstat:
-        #     damagetaken +=projectile[bullet].dmg
