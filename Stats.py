@@ -21,7 +21,7 @@ def show_stats(player1, player2, screen):
     title1_rect = title1_text.get_rect(left=100, top=350)
     screen.blit(title1_text, title1_rect)
     title2_text = pygame.font.Font('assets/spaceage.ttf', 30).render("PLAYER 2", True, (0, 0, 0))
-    title2_rect = title2_text.get_rect(left=400, top=350)
+    title2_rect = title2_text.get_rect(left=600, top=350)
     screen.blit(title2_text, title2_rect)
     # number of shots
     numofshots1_text = pygame.font.Font('assets/spaceage.ttf', 10).render(
@@ -30,7 +30,7 @@ def show_stats(player1, player2, screen):
     screen.blit(numofshots1_text, numofshots1_rect)
     numofshots2_text = pygame.font.Font('assets/spaceage.ttf', 10).render(
         "Number of shots: " + str(player2.number_of_shots), True, (0, 0, 0))
-    numofshots2_rect = numofshots2_text.get_rect(left=400, top=400)
+    numofshots2_rect = numofshots2_text.get_rect(left=600, top=400)
     screen.blit(numofshots2_text, numofshots2_rect)
     # number of hits
     numofhits1_text = pygame.font.Font('assets/spaceage.ttf', 10).render(
@@ -39,7 +39,7 @@ def show_stats(player1, player2, screen):
     screen.blit(numofhits1_text, numofhits1_rect)
     numofhits2_text = pygame.font.Font('assets/spaceage.ttf', 10).render(
         "Number of hits: " + str(player2.number_of_hits), True, (0, 0, 0))
-    numofhits2_rect = numofhits2_text.get_rect(left=400, top=410)
+    numofhits2_rect = numofhits2_text.get_rect(left=600, top=410)
     screen.blit(numofhits2_text, numofhits2_rect)
     # accuracy
     if player1.number_of_shots > 0:
@@ -54,7 +54,7 @@ def show_stats(player1, player2, screen):
     acc1_rect = acc1_text.get_rect(left=100, top=420)
     screen.blit(acc1_text, acc1_rect)
     acc2_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Accuracy: " + acc2, True, (0, 0, 0))
-    acc2_rect = acc2_text.get_rect(left=400, top=420)
+    acc2_rect = acc2_text.get_rect(left=600, top=420)
     screen.blit(acc2_text, acc2_rect)
     # damage taken
     dmg1_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Damage taken: " + str(player1.damagetaken),
@@ -63,7 +63,7 @@ def show_stats(player1, player2, screen):
     screen.blit(dmg1_text, dmg1_rect)
     dmg2_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Damage taken: " + str(player2.damagetaken),
                                                                    True, (0, 0, 0))
-    dmg2_rect = acc1_text.get_rect(left=400, top=430)
+    dmg2_rect = acc1_text.get_rect(left=600, top=430)
     screen.blit(dmg2_text, dmg2_rect)
     # mana spent
     mana1_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Mana spent: " + str(player1.manaspent),
@@ -72,7 +72,7 @@ def show_stats(player1, player2, screen):
     screen.blit(mana1_text, mana1_rect)
     mana2_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Mana spent: " + str(player2.manaspent),
                                                                     True, (0, 0, 0))
-    mana2_rect = mana1_text.get_rect(left=400, top=440)
+    mana2_rect = mana1_text.get_rect(left=600, top=440)
     screen.blit(mana2_text, mana2_rect)
     # final health
     hp1_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Final health: " + str(player1.hp), True,
@@ -81,6 +81,6 @@ def show_stats(player1, player2, screen):
     screen.blit(hp1_text, hp1_rect)
     hp2_text = pygame.font.Font('assets/spaceage.ttf', 10).render("Final health: " + str(player2.hp), True,
                                                                   (0, 0, 0))
-    hp2_rect = hp2_text.get_rect(left=400, top=450)
+    hp2_rect = hp2_text.get_rect(left=600, top=450)
     screen.blit(hp2_text, hp2_rect)
     pygame.display.flip()
