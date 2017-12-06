@@ -8,13 +8,16 @@ import health_and_mana
 
 class Controller:
     def __init__(self):
+        """
+        Has most variable thats needed throughout the game for looping, others are stored by each player
+        """
         pygame.init()
         self.width = 800
         self.height = 600
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.background = pygame.Surface(self.screen.get_size())  # will become map SURFACE
         self.background_rect = self.background.get_rect
-        self.sprites = pygame.sprite.Group()  # Self explanatory, see description in player.py
+        self.sprites = pygame.sprite.Group()  # all sprites
         self.bullets = pygame.sprite.Group()
         self.lsbullets = pygame.sprite.Group()
         self.rockets = pygame.sprite.Group()
@@ -22,7 +25,6 @@ class Controller:
         self.punyassbullets = pygame.sprite.Group()
         self.allprojectiles = pygame.sprite.Group()  # ALL Projectiles, Doesn't conflict w/ anything so it's ok
         self.bgfile = ''  # For changing and resetting background, different use later on than self.background
-        self.clock = pygame.time.Clock()  # Used for countdown timer, ignore
         self.Players = []  # List of players
 
     def start_menu(self):
@@ -34,7 +36,6 @@ class Controller:
         self.screen.blit(background_file, background_file.get_rect())
         pygame.display.flip()
         pygame.key.set_repeat(1, 300)
-        # prompt "press enter to enter select" or something
         time_to_start = True
         while time_to_start:
             for event in pygame.event.get():
@@ -51,7 +52,7 @@ class Controller:
     def player1select(self):
         """
         Called by Start Menu, customize player 1
-        :return:
+        :return: player1
         """
         background_file = pygame.image.load("assets/player1.png")
         self.screen.blit(background_file, background_file.get_rect())
@@ -78,6 +79,10 @@ class Controller:
                         main()  # go back
 
     def player2select(self):
+        """
+        Called by start menu, customize player 2
+        :return: player 2
+        """
         background_file = pygame.image.load("assets/player2.png")
         self.screen.blit(background_file, background_file.get_rect())
         pygame.display.flip()
@@ -105,8 +110,11 @@ class Controller:
                     if event.key == pygame.K_BACKSPACE:
                         main()  # Reset Game [MUCH better than trying to go back to prev screen, trust us]
 
-
     def map_select(self):
+        """
+        Choose map, called by main
+        :return: None
+        """
         background_file = pygame.image.load("assets/mapselection.png")
         self.screen.blit(background_file, background_file.get_rect())
         pygame.display.flip()
@@ -128,8 +136,10 @@ class Controller:
         self.background_rect = self.background.get_rect
         self.bgfile = self.background
         pygame.display.flip()
+        self.countdown()
 
-        # some countdown timer shit that pretty much works, don't judge
+    def countdown(self):
+
         for timer in range(-5, 0):
             start_time = time.time()
             self.screen.blit(self.bgfile, self.bgfile.get_rect())
@@ -155,7 +165,7 @@ class Controller:
         Game over Screen
         :param player1: player 1
         :param player2: player 1
-        :return: none
+        :return: None
         """
         isRunning = True
         while isRunning:
@@ -165,7 +175,7 @@ class Controller:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 if keys[pygame.K_RETURN]:
-                    main()
+                    main()  # Trust the process
 
     def refresh_player_sprites(self, players):
             self.sprites.add(players[0].sprites, players[1].sprites)  # refreshing sprite groups and stuff
@@ -227,13 +237,13 @@ class Controller:
             for player in self.Players:  # Reminder, self.players is a list of both player objects
                 if player.mana < 100:  # need to regen mana regardless of event in pygame
                     player.mana += .05
-                elif player.mana > 100:  # bugfix
+                elif player.mana > 100:  # lets not get crazy
                     player.mana = 100
 
-            self.refresh_player_sprites(self.Players)
-            health_and_mana.show_resources(self.Players, self.screen)
+            self.refresh_player_sprites(self.Players)  # Refresh sprites
+            health_and_mana.show_resources(self.Players, self.screen)  # refresh health and mana
 
-            if player1.hp <= 0 or player2.hp <= 0:
+            if player1.hp <= 0 or player2.hp <= 0:  # someone needs to get good
                 # Final count of shots
                 player1.number_of_shots = player1.number_of_shots - len(player1.allprojectiles.sprites())
                 player2.number_of_shots = player2.number_of_shots - len(player2.allprojectiles.sprites())
