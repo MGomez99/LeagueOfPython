@@ -7,6 +7,7 @@ import Stats
 import health_and_mana
 import music
 
+
 class Controller:
     def __init__(self):
         """
@@ -38,7 +39,7 @@ class Controller:
         pygame.display.flip()
         pygame.key.set_repeat(1, 300)
         time_to_start = True
-        music.Music.playIntro(self) #plays intro song
+        music.Music.playIntro(self)  # plays intro song
         while time_to_start:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -128,7 +129,7 @@ class Controller:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_BACKSPACE:  # Go back to menu
-                            main()  # Nuclear option, easier and works
+                        main()  # Nuclear option, easier and works
 
                     if event.key in maps:
                         self.background = pygame.image.load(maps[event.key])
@@ -183,9 +184,9 @@ class Controller:
                     main()  # Trust the process
 
     def refresh_player_sprites(self, players):
-            self.sprites.add(players[0].sprites, players[1].sprites)  # refreshing sprite groups and stuff
-            self.screen.blit(self.bgfile, self.bgfile.get_rect())  # drawing sprites
-            self.sprites.draw(self.screen)
+        self.sprites.add(players[0].sprites, players[1].sprites)  # refreshing sprite groups and stuff
+        self.screen.blit(self.bgfile, self.bgfile.get_rect())  # drawing sprites
+        self.sprites.draw(self.screen)
 
     def mainLoop(self, player1, player2):
         """
@@ -201,8 +202,7 @@ class Controller:
         pygame.event.clear()  # no bugs today
         isRunning = True  # Is the game running? Hell yeah it is
         pygame.key.set_repeat(10, 10)
-        music.Music.playMain(self) #plays main song
-
+        music.Music.playMain(self)  # plays main song
 
         while isRunning:
             # If there's projectiles on the screen, update them FIRST

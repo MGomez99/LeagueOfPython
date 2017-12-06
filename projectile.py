@@ -29,6 +29,7 @@ class Projectile(pygame.sprite.Sprite):
     def bullet_travelling(self, ally_player, enemy_player, bullets_hit):
         """
         Updates bullets
+        :param ally_player: ally player
         :param enemy_player: not friendly player
         :param bullets_hit: num of bullets hit
         :return: bullets hit
@@ -49,13 +50,11 @@ class Projectile(pygame.sprite.Sprite):
                 if ally_player.hp < ally_player.maxhp:
                     ally_player.hp += self.dmg
                 if ally_player.hp > ally_player.maxhp:
-                    ally_player.hp == ally_player.maxhp
+                    ally_player.hp = ally_player.maxhp
 
             self.kill()
             self.hitstat = True
             bullets_hit += 1
-        else:
-            hitstat = False
         self.rect = self.image.get_rect()
         self.rect.center = self.x, self.y
         return bullets_hit
