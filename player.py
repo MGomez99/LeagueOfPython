@@ -13,10 +13,10 @@ class Player(pygame.sprite.Sprite):
         :param team: BLUE/RED
         :param spec: specialization(or RPG "Class")1,2,3
         :param sprites: group of all sprites
-        :param lsbullets: lifesteat bullets
+        :param lsbullets: lifesteal bullets
         :param bullets: normal bullets from default attack
         :param bigassbullets: rockets
-        :param punyassbullets: machinegun bullets
+        :param punyassbullets: machine gun bullets
         """
         pygame.sprite.Sprite.__init__(self)
         self.res = pygame.display.get_surface().get_size()

@@ -196,7 +196,8 @@ class Controller:
         self.sprites.add(player1, player2)  # adds both players to group
         self.Players = [player1, player2]
         go_to_menu = False
-        isRunning = True  # Is the game running?
+        pygame.event.clear()  # no bugs today
+        isRunning = True  # Is the game running? Hell yeah it is
         pygame.key.set_repeat(10, 10)
 
         while isRunning:
