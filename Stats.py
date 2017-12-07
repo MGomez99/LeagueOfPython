@@ -118,8 +118,7 @@ def highScores(player, screen):
                         data["number_of_hits"] = player.number_of_hits
                     n+=1
                 if n==2:
-                    if player.number_of_shots > 0:
-                        accuracy = str(round(player.number_of_hits / player.number_of_shots, 2) * 100) + "%"
+
                     if int(data["accuracy"]) < int(player.accuracy):
                         data["accuracy"] = player.accuracy
                     n+=1
@@ -144,8 +143,6 @@ def highScores(player, screen):
                     data["number_of_hits"] = player.number_of_hits
                     n+=1
                 if n==2:
-                    if player.number_of_shots > 0:
-                        accuracy = str(round(player.number_of_hits / player.number_of_shots, 2) * 100) + "%"
                     data["accuracy"] = player.accuracy
                     n+=1
                 if n==3:

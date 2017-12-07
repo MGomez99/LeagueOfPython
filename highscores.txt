@@ -1,1 +1,1 @@
-{"number_of_shots": 41, "number_of_hits": 38, "accuracy": 0, "damagetaken": 0, "manaspent": 119, "hp": 375}
+{"number_of_shots": 38, "number_of_hits": 38, "accuracy": 0.35185185185185186, "damagetaken": 0, "manaspent": 108, "hp": 250}
