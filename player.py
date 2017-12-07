@@ -77,7 +77,7 @@ class Player(pygame.sprite.Sprite):
                 self.imagefile = "assets/spec3blue.png"
             elif self.team == "RED":
                 self.imagefile = "assets/spec3red.png"
-
+        # Class dependent positions and key bingdings
         if self.team == "BLUE":
             self.health_location = (0, 0)
             self.mana_location = (0, 35)

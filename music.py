@@ -6,8 +6,6 @@ def playIntro():
     plays intro song
     :return: None
     """
-
-    # plays the intro song
     pygame.mixer.music.load("assets/introsong.ogg")
     pygame.mixer.music.play(-1)
 
@@ -17,8 +15,6 @@ def playMain():
     plays main song
     :return: None
     """
-
-    # plays the main song for the game
     pygame.mixer.music.load("assets/mainsong.ogg")
     pygame.mixer.music.play(-1)
 

@@ -6,6 +6,8 @@ import player
 import Stats
 import health_and_mana
 import music
+import projectile
+import text_to_screen
 
 
 class Controller:
@@ -185,6 +187,11 @@ class Controller:
                     main()  # Trust the process
 
     def refresh_player_sprites(self, players):
+        """
+        refreshes sprite groups and draws them
+        :param players:
+        :return: None
+        """
         self.sprites.add(players[0].sprites, players[1].sprites)  # refreshing sprite groups and stuff
         self.screen.blit(self.bgfile, self.bgfile.get_rect())  # drawing sprites
         self.sprites.draw(self.screen)

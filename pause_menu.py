@@ -14,9 +14,6 @@ def paused(display, isPaused):
     """
     text = "Paused. Press space to continue or backspace to quit."
     tts(display, text, 50, 200, 'assets/spaceage.ttf', 20, (0, 255, 0))  # lazy
-    # pause_surface, pause_rectangle = text_object, text_object.get_rect()
-    # pause_surface.center = ((display.width/2), (display.height/2))
-    # display.screen.blit(pause_surface, pause_rectangle)
 
     konami_code = ['u', 'u',  'd', 'd', 'l', 'r', 'l', 'r', 'b', 'a']
     input_code = ['', '', '', '', '', '', '', '', '', '']
