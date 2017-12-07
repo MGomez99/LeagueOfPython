@@ -6,6 +6,7 @@ import player
 import Stats
 import health_and_mana
 import music
+import json
 import projectile
 import text_to_screen
 
@@ -180,6 +181,8 @@ class Controller:
         while isRunning:
             keys = pygame.key.get_pressed()
             Stats.show_stats(player1, player2, self.screen)
+            Stats.highScores(player1, self.screen)
+            Stats.highScores(player2, self.screen)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
